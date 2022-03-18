@@ -1,8 +1,8 @@
 # Music Visualiser Project
 
-Name:
+Name: Conor Davis
 
-Student Number: 
+Student Number: C20441826
 
 ## Instructions
 - Fork this repository and use it a starter project for your assignment
