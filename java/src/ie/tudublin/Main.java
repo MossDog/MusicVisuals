@@ -4,7 +4,9 @@ import example.AudioBandsVisual;
 import example.CubeVisual;
 import example.MyVisual;
 import example.RotatingAudioBands;
+import example.WaveForm;
 import c123456.BryansVisual;
+
 public class Main
 {	
 
@@ -13,6 +15,7 @@ public class Main
 		String[] a = {"MAIN"};
         processing.core.PApplet.runSketch( a, new BryansVisual());		
 	}
+
 
 	public static void main(String[] args)
 	{
