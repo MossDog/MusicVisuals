@@ -83,9 +83,6 @@ public class BryansVisual extends Visual
         //details --> minimum size for tv details
         if(height >= 500 && width >= 500)
         {
-            //desk
-            fill(59, 32, 18);
-            quad(width/24,height,width/8,height-height/3,width-width/8,height-height/3,width-width/24,height);
             //tv frame
             fill(150); 
             rect(borderx-frame, bordery-frame, width-(borderx*2)+(frame*2), height-(bordery*2)+(frame*4), detail*2);    
@@ -107,7 +104,7 @@ public class BryansVisual extends Visual
             stroke(115, 199, 132);//light green
             circle(borderx + (frame*(float)7.5) + frame,(bordery + height-(bordery*2)) + (detail*3) + (frame),frame/2);//line out
         }//end if statement
-
+        //tv screen
         noStroke();
         fill(20);
         rect(borderx, bordery, width-(borderx*2), height-(bordery*2), detail*2);

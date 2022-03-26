@@ -1,10 +1,11 @@
 package ie.tudublin;
 
+/*
 import example.AudioBandsVisual;
 import example.CubeVisual;
 import example.MyVisual;
 import example.RotatingAudioBands;
-import example.WaveForm;
+*/
 import c123456.BryansVisual;
 
 public class Main
@@ -20,6 +21,6 @@ public class Main
 	public static void main(String[] args)
 	{
 		Main main = new Main();
-		main.startUI();			
+		main.startUI();		
 	}
 }
