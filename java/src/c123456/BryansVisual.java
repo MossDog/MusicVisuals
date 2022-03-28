@@ -114,16 +114,51 @@ public class BryansVisual extends Visual
         switch (mode) {
             case 0:
             {
-                for(int i = 0 ; i < ab.size() ; i ++)
+                for(int i = (int)borderx ; i < width-borderx ; i ++)
                 {
                     //float c = map(ab.get(i), -1, 1, 0, 255);
-                    float c = map(i, 0, ab.size(), 0, 255);
+                    float c = map(i, 0, width-borderx, 0, 255);
                     stroke(c, 255, 255);
                     float f = lerpedBuffer[i] * bordery;
-                    line(i/2 + (width/4), (halfH/2) + f + (height/4), (halfW/2) - f + (width/4), i/2 + (height/4));  
-                      
-                       
-     
+                    //line(i, (halfH/2) + f + (bordery), i, (halfH/2) - f + (bordery));
+                    if ((halfH/2) + f + (bordery*2) < (halfH/2) - f + (bordery*2))
+                    {
+                        line(i, (halfH/2) + f + (bordery*2), i, (halfH/2) + (bordery*2));  
+                    }
+                    if ((halfH/2) + f > (halfH/2) - f)
+                    {
+                        line(i, (halfH/2) + f, i, (halfH/2));
+                    }
+                    
+                }
+                
+                for(int i = (int)borderx + 20 ; i < width-borderx - 20; i ++)
+                {
+                    //float c = map(ab.get(i), -1, 1, 0, 255);
+                    float c = map(i, 0, width-borderx, 0, 255);
+                    stroke(c, 255, 255);
+                    float f = lerpedBuffer[i] * bordery;
+
+                    line(i, (halfH/2) + f + (bordery), width - (i), (halfW/2)-f + (bordery));
+                }
+
+                for(int i = (int)bordery; i < height -bordery; i ++)
+                {
+                    //float c = map(ab.get(i), -1, 1, 0, 255);
+                    float c = map(i, 0, height -bordery, 0, 255);
+                    stroke(c, 255, 255);
+                    float f = lerpedBuffer[i] * bordery;
+                    
+                    if (f + (borderx) > borderx)
+                    {
+                        line(borderx, i, f + (borderx), i);
+                    }
+
+                    if (f + (borderx*4) < borderx*4)
+                    {
+                        line(borderx*4, i, f + (borderx*4), i);
+                    }
+                    
                 }
                 break;
             }
