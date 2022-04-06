@@ -14,7 +14,7 @@ public class BryansVisual extends Visual
     AudioPlayer ap;
     AudioInput ai;
     AudioBuffer ab;
-
+    int x, j;
     int mode = 0;
 
     float[] lerpedBuffer;
@@ -74,15 +74,16 @@ public class BryansVisual extends Visual
         float halfW = width/2;
         float average = 0;
         float sum = 0;
-        for(int i = 0 ; i < ab.size() ; i ++)
+        for(int i = (int)borderx ; i < width-borderx ; i ++)
         {
             sum += abs(ab.get(i));
             lerpedBuffer[i] = lerp(lerpedBuffer[i], ab.get(i), 0.2f);
         }
-        average= sum / (float) ab.size();
+        average= sum / width-borderx;
         //details --> minimum size for tv details
         if(height >= 500 && width >= 500)
         {
+            colorMode(RGB);
             //desk
             fill(59, 32, 18);
             quad(width/24,height,width/8,height-height/3,width-width/8,height-height/3,width-width/24,height);
@@ -110,12 +111,14 @@ public class BryansVisual extends Visual
         //tv screen
         noStroke();
         fill(20);
+        
         rect(borderx, bordery, width-(borderx*2), height-(bordery*2), detail*2);
         switch (mode) {
             case 0:
-            {
+            {   // iterate through the width of the screen
                 for(int i = (int)borderx ; i < width-borderx ; i ++)
                 {
+                    colorMode(HSB);
                     //float c = map(ab.get(i), -1, 1, 0, 255);
                     float c = map(i, 0, width-borderx, 0, 255);
                     stroke(c, 255, 255);
@@ -124,24 +127,47 @@ public class BryansVisual extends Visual
                     if ((halfH/2) + f + (bordery*2) < (halfH/2) - f + (bordery*2))
                     {
                         line(i, (halfH/2) + f + (bordery*2), i, (halfH/2) + (bordery*2));  
+                        
                     }
                     if ((halfH/2) + f > (halfH/2) - f)
                     {
                         line(i, (halfH/2) + f, i, (halfH/2));
+                        
+                    }
+
+                    
+                    x = (int)(sin(radians(i))*(sin(i+j)*5));
+                    float y = sin(i+j)*300;
+                    if ( i + x > borderx && i+y > bordery + 5 && i+y < height - bordery - 5)
+                    {
+                        ellipse(i + x, i + y, f/2, f/2);
                     }
                     
                 }
                 
+                // iterate through the width of the screen - 20 on both sides so visualizer doesnt merge with side visualizers
                 for(int i = (int)borderx + 20 ; i < width-borderx - 20; i ++)
+                {
+
+                    //float c = map(ab.get(i), -1, 1, 0, 255);
+                    float c = map(i, 0, width-borderx, 0, 255);
+                    stroke(c, 255, 255);
+                    float f = lerpedBuffer[i] * bordery;
+
+                    line(i, (halfH/2) + (f*2) + (bordery), width - (i), (halfW/2)-(f*2) + (bordery));
+                }
+                /*for(int i = (int)bordery + 20 ; i < height-bordery - 20; i ++)
                 {
                     //float c = map(ab.get(i), -1, 1, 0, 255);
                     float c = map(i, 0, width-borderx, 0, 255);
                     stroke(c, 255, 255);
                     float f = lerpedBuffer[i] * bordery;
 
-                    line(i, (halfH/2) + f + (bordery), width - (i), (halfW/2)-f + (bordery));
-                }
+                    line((halfH/2) + f + (bordery), i, (halfW/2)-f + (bordery), height - (i));
+                    
+                }*/
 
+                // iterate through the length of the screen
                 for(int i = (int)bordery; i < height -bordery; i ++)
                 {
                     //float c = map(ab.get(i), -1, 1, 0, 255);
@@ -160,6 +186,7 @@ public class BryansVisual extends Visual
                     }
                     
                 }
+                j += 0.04;
                 break;
             }
     }//end draw
