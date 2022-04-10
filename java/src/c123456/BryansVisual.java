@@ -8,6 +8,8 @@ import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
 import processing.core.PApplet;
 
+
+
 public class BryansVisual extends Visual 
 {
     Minim minim;
@@ -16,11 +18,16 @@ public class BryansVisual extends Visual
     AudioBuffer ab;
     int x, j;
     int mode = 0;
-
-    float[] lerpedBuffer;
+    float lerpedBuffer[];
     float y = 0;
     float smoothedY = 0;
     float smoothedAmplitude = 0;
+    float borderx;
+    float bordery;
+    float halfH;
+    float halfW;
+    Viz1 viz1;
+    
 
     public void settings()
     {
@@ -52,12 +59,15 @@ public class BryansVisual extends Visual
         startMinim();
         //startListening(); 
         ap = minim.loadFile("rapgod.mp3", 500);
+        //ap.setGain(-10); // set volume
         ap.play();
         ab = ap.mix;
         y = height / 2;
         smoothedY = y;
 
         lerpedBuffer = new float[width];
+        viz1 = new Viz1(width, height, lerpedBuffer, this);
+        
     }//end setup
 
     public void draw()
@@ -66,20 +76,15 @@ public class BryansVisual extends Visual
         background(100,100,100);
         noStroke();
         //border calculation
-        float borderx = width * 0.2f;
-        float bordery = height * 0.25f;
+        borderx = width * 0.2f;
+        bordery = height * 0.25f;
         float frame = 30f;
         float detail = 5f;
-        float halfH = height / 2;
-        float halfW = width/2;
+        halfH = height / 2;
+        halfW = width/2;
         float average = 0;
         float sum = 0;
-        for(int i = (int)borderx ; i < width-borderx ; i ++)
-        {
-            sum += abs(ab.get(i));
-            lerpedBuffer[i] = lerp(lerpedBuffer[i], ab.get(i), 0.2f);
-        }
-        average= sum / width-borderx;
+        
         //details --> minimum size for tv details
         if(height >= 500 && width >= 500)
         {
@@ -116,77 +121,7 @@ public class BryansVisual extends Visual
         switch (mode) {
             case 0:
             {   // iterate through the width of the screen
-                for(int i = (int)borderx ; i < width-borderx ; i ++)
-                {
-                    colorMode(HSB);
-                    //float c = map(ab.get(i), -1, 1, 0, 255);
-                    float c = map(i, 0, width-borderx, 0, 255);
-                    stroke(c, 255, 255);
-                    float f = lerpedBuffer[i] * bordery;
-                    //line(i, (halfH/2) + f + (bordery), i, (halfH/2) - f + (bordery));
-                    if ((halfH/2) + f + (bordery*2) < (halfH/2) - f + (bordery*2))
-                    {
-                        line(i, (halfH/2) + f + (bordery*2), i, (halfH/2) + (bordery*2));  
-                        
-                    }
-                    if ((halfH/2) + f > (halfH/2) - f)
-                    {
-                        line(i, (halfH/2) + f, i, (halfH/2));
-                        
-                    }
-
-                    
-                    x = (int)(sin(radians(i))*(sin(i+j)*5));
-                    float y = sin(i+j)*300;
-                    if ( i + x > borderx && i+y > bordery + 5 && i+y < height - bordery - 5)
-                    {
-                        ellipse(i + x, i + y, f/2, f/2);
-                    }
-                    
-                }
-                
-                // iterate through the width of the screen - 20 on both sides so visualizer doesnt merge with side visualizers
-                for(int i = (int)borderx + 20 ; i < width-borderx - 20; i ++)
-                {
-
-                    //float c = map(ab.get(i), -1, 1, 0, 255);
-                    float c = map(i, 0, width-borderx, 0, 255);
-                    stroke(c, 255, 255);
-                    float f = lerpedBuffer[i] * bordery;
-
-                    line(i, (halfH/2) + (f*2) + (bordery), width - (i), (halfW/2)-(f*2) + (bordery));
-                }
-                /*for(int i = (int)bordery + 20 ; i < height-bordery - 20; i ++)
-                {
-                    //float c = map(ab.get(i), -1, 1, 0, 255);
-                    float c = map(i, 0, width-borderx, 0, 255);
-                    stroke(c, 255, 255);
-                    float f = lerpedBuffer[i] * bordery;
-
-                    line((halfH/2) + f + (bordery), i, (halfW/2)-f + (bordery), height - (i));
-                    
-                }*/
-
-                // iterate through the length of the screen
-                for(int i = (int)bordery; i < height -bordery; i ++)
-                {
-                    //float c = map(ab.get(i), -1, 1, 0, 255);
-                    float c = map(i, 0, height -bordery, 0, 255);
-                    stroke(c, 255, 255);
-                    float f = lerpedBuffer[i] * bordery;
-                    
-                    if (f + (borderx) > borderx)
-                    {
-                        line(borderx, i, f + (borderx), i);
-                    }
-
-                    if (f + (borderx*4) < borderx*4)
-                    {
-                        line(borderx*4, i, f + (borderx*4), i);
-                    }
-                    
-                }
-                j += 0.04;
+                viz1.render();
                 break;
             }
     }//end draw
