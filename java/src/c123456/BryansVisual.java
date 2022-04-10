@@ -124,6 +124,6 @@ public class BryansVisual extends Visual
                 viz1.render();
                 break;
             }
+        }//end switch
     }//end draw
-}
 }//end NameVisual
