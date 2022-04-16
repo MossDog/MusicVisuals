@@ -54,7 +54,6 @@ public class BryansVisual extends Visual
     {
         minim = new Minim(this);
         colorMode(RGB);
-        noCursor();
         setFrameSize(256);
         startMinim();
         //startListening(); 
@@ -126,4 +125,20 @@ public class BryansVisual extends Visual
             }
         }//end switch
     }//end draw
+
+    public void mouseClicked()
+    {   
+        float detail = 5f;
+        if (mouseX >= borderx && mouseX <= width-borderx && mouseY >= (bordery + height-(bordery*2)) + detail*3 && mouseY <= ((bordery + height-(bordery*2)) + detail*3) + 60f)
+        {
+            if (ap.isPlaying())
+            {
+                ap.pause();
+            }
+            else
+            {
+                ap.play();
+            }
+        }
+    }
 }//end NameVisual
