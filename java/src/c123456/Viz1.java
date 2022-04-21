@@ -8,6 +8,7 @@ public class Viz1 extends Visual
 
     BryansVisual viz;
     float[] lerpedBuffer;
+    float[] lerpedBufferY;
     float width, height;
 
     public Viz1(float width, float height, float lerpedBuffer[], BryansVisual viz)
@@ -16,6 +17,7 @@ public class Viz1 extends Visual
         this.width = width;
         this.viz = viz;
         this.lerpedBuffer = lerpedBuffer;
+        this.lerpedBufferY = lerpedBuffer;
     }
 
     public void render()
@@ -27,6 +29,8 @@ public class Viz1 extends Visual
         float halfW = width/2;
         float average = 0;
         float sum = 0;
+        float averageY = 0;
+        float sumY = 0;
     
 
         for(int i = (int)borderx ; i < width-borderx ; i ++)
@@ -35,6 +39,15 @@ public class Viz1 extends Visual
             lerpedBuffer[i] = lerp(lerpedBuffer[i], viz.ab.get(i), 0.2f);
         }
         average= sum / width-borderx;
+
+        for(int i = (int)bordery ; i < height-bordery ; i ++)
+        {
+
+            sumY += abs(viz.ab.get(i));
+            lerpedBufferY[i] = lerp(lerpedBufferY[i], viz.ab.get(i), 0.2f);
+            
+        }
+        averageY= sumY / height-bordery;
         
 
         for(int i = (int)borderx ; i < width-borderx ; i ++)
@@ -47,36 +60,36 @@ public class Viz1 extends Visual
             //line(i, (halfH/2) + f + (bordery), i, (halfH/2) - f + (bordery));
             if ((halfH/2) + f + (bordery*2) < (halfH/2) - f + (bordery*2))
             {
-                viz.line(i, (halfH/2) + f + (bordery*2), i, (halfH/2) + (bordery*2));  
+                viz.line(i, (halfH/2) + (f/2) + (bordery*2), i, (halfH/2) + (bordery*2));  
                 
             }
             if ((halfH/2) + f > (halfH/2) - f)
             {
-                viz.line(i, (halfH/2) + f, i, (halfH/2));
+                viz.line(i, (halfH/2) + (f/2), i, (halfH/2));
                 
             }
 
             
             x = (int)(sin(radians(i))*(sin(i+j)*5));
-            float y = sin(i+j)*300;
-            if ( i + x > borderx && i+y > bordery + 5 && i+y < height - bordery - 5)
+            float y = sin(i+j)*width-(borderx*2);
+            if ( i + x > borderx + 10 && i+x < width-borderx - 10 && i+y > bordery + 10 && i+y < height - bordery - 10)
             {
-                viz.ellipse(i + x, i + y, f/2, f/2);
+                viz.ellipse(i + x, i + y, f/3, f/3);
                 //ellipse(i + x, (halfH/2) + (f*2) + (bordery), f/2, f/2);
             }
             
         }
         
         // iterate through the width of the screen - 20 on both sides so visualizer doesnt merge with side visualizers
-        for(int i = (int)borderx + 20 ; i < width-borderx - 20; i ++)
+        for(int i = (int)borderx ; i < width-(borderx*2); i ++)
         {
 
             //float c = map(ab.get(i), -1, 1, 0, 255);
-            float c = map(i, 0, width-borderx, 0, 255);
+            float c = map(i, 0, width-(borderx*2), 0, 255);
             viz.stroke(c, 255, 255);
             float f = lerpedBuffer[i] * bordery;
 
-            viz.line(i, (halfH/2) + (f*2) + (bordery), width - (i), (halfW/2)-(f*2) + (bordery));
+            viz.line(i+10, (halfH) + (f), width-10- (i), (halfH)-(f) );
         }
         /*for(int i = (int)bordery + 20 ; i < height-bordery - 20; i ++)
         {
@@ -95,16 +108,15 @@ public class Viz1 extends Visual
             //float c = map(ab.get(i), -1, 1, 0, 255);
             float c = map(i, 0, height -bordery, 0, 255);
             viz.stroke(c, 255, 255);
-            float f = lerpedBuffer[i] * bordery;
+            float f = lerpedBufferY[i] * bordery;
             
-            if (f + (borderx) > borderx)
+            if (f + (borderx*4) > borderx*4)
             {
-                viz.line(borderx, i, f + (borderx), i);
+                viz.line(borderx, i, f/2 + borderx, i);
             }
-
             if (f + (borderx*4) < borderx*4)
             {
-                viz.line(borderx*4, i, f + (borderx*4), i);
+                viz.line(borderx*4, i, f/2 + (borderx*4), i);
             }
             
         }

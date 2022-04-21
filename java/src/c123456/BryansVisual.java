@@ -27,8 +27,9 @@ public class BryansVisual extends Visual
     float halfH;
     float halfW;
     Viz1 viz1;
+    Viz2 viz2;
+    float n4;
     
-
     public void settings()
     {
         size(500, 500, P3D);//min size for tv graphic is 500 x 500
@@ -63,10 +64,10 @@ public class BryansVisual extends Visual
         ab = ap.mix;
         y = height / 2;
         smoothedY = y;
-
+        
         lerpedBuffer = new float[width];
         viz1 = new Viz1(width, height, lerpedBuffer, this);
-        
+        viz2 = new Viz2(width, height, this);
     }//end setup
 
     public void draw()
@@ -83,6 +84,9 @@ public class BryansVisual extends Visual
         halfW = width/2;
         float average = 0;
         float sum = 0;
+        n4 = borderx/2;
+
+        
         
         //details --> minimum size for tv details
         if(height >= 500 && width >= 500)
@@ -123,6 +127,12 @@ public class BryansVisual extends Visual
                 viz1.render();
                 break;
             }
+            case 1:
+            {
+                viz2.render();
+                break;
+            }
+                
         }//end switch
     }//end draw
 
@@ -141,4 +151,5 @@ public class BryansVisual extends Visual
             }
         }
     }
+
 }//end NameVisual
