@@ -3,8 +3,11 @@
 Name & Student Number: 
 
 Ryan Deguara - C20309873
+
 Conor Davis - C20441826
+
 Luke Hughes - C20487654
+
 
 ## Instructions
 - Fork this repository and use it a starter project for your assignment
