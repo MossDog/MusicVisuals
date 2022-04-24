@@ -1,8 +1,14 @@
 # Music Visualiser Project
 
-Name: Conor Davis
+### Name & Student Number: 
 
-Student Number: C20441826
+
+Ryan Deguara - C20309873
+
+Conor Davis - C20441826
+
+Luke Hughes - C20487654
+
 
 ## Instructions
 - Fork this repository and use it a starter project for your assignment
@@ -12,6 +18,8 @@ Student Number: C20441826
 - Check out the WaveForm and AudioBandsVisual for examples of how to call the Processing functions from other classes that are not subclasses of PApplet
 
 # Description of the assignment
+
+
 
 # Instructions
 
