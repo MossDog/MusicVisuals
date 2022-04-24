@@ -1,6 +1,6 @@
 # Music Visualiser Project
 
-Name & Student Number: 
+### Name & Student Number: 
 
 
 Ryan Deguara - C20309873
