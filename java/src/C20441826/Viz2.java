@@ -1,10 +1,10 @@
-package c123456;
+package C20441826;
 import ie.tudublin.Visual;
 
 public class Viz2 extends Visual 
 {
 
-    BryansVisual viz;
+    VisualSetup viz;
     float[] lerpedBuffer;
     float width, height;
     float borderx = width * 0.2f;
@@ -13,7 +13,7 @@ public class Viz2 extends Visual
     float n6;
     float angle2;
 
-    public Viz2(float width, float height, BryansVisual viz)
+    public Viz2(float width, float height, VisualSetup viz)
     {
         this.height = height;
         this.width = width;
@@ -44,7 +44,7 @@ public class Viz2 extends Visual
             float x = (sin(radians(i))*(angle2))/4; // width of outspread
             float y = (cos(radians(i))*(angle2))/4;
         
-            float x3 = sin(radians(i))*((width/2)/angle); 
+            //float x3 = sin(radians(i))*((width/2)/angle); 
             float y3 = cos(radians(i))*((width/2)/angle);
 
             //stroke(c, 255, 255);

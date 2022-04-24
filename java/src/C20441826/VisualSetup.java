@@ -1,4 +1,4 @@
-package c123456;
+package C20441826;
 
 import ie.tudublin.Visual;
 import ie.tudublin.VisualException;
@@ -6,11 +6,8 @@ import ddf.minim.AudioBuffer;
 import ddf.minim.AudioInput;
 import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
-import processing.core.PApplet;
 
-
-
-public class BryansVisual extends Visual 
+public class VisualSetup extends Visual 
 {
     Minim minim;
     AudioPlayer ap;
@@ -28,13 +25,15 @@ public class BryansVisual extends Visual
     float halfW;
     Viz1 viz1;
     Viz2 viz2;
+    Viz3 viz3;
+    Viz4 viz4;
     float n4;
     
     public void settings()
     {
         size(500, 500, P3D);//min size for tv graphic is 500 x 500
         println("CWD: " + System.getProperty("user.dir"));//current working directory
-        //fullScreen(P3D,SPAN);// full screen
+        fullScreen(P3D,SPAN);// full screen
     }//end settings
 
     public void keyPressed() {
@@ -58,7 +57,7 @@ public class BryansVisual extends Visual
         setFrameSize(256);
         startMinim();
         //startListening(); 
-        ap = minim.loadFile("rapgod.mp3", 500);
+        ap = minim.loadFile("rapgod.mp3", height+width);
         //ap.setGain(-10); // set volume
         ap.play();
         ab = ap.mix;
@@ -68,6 +67,9 @@ public class BryansVisual extends Visual
         lerpedBuffer = new float[width];
         viz1 = new Viz1(width, height, lerpedBuffer, this);
         viz2 = new Viz2(width, height, this);
+        viz3 = new Viz3(width, height, smoothedAmplitude, lerpedBuffer, this);
+        viz4 = new Viz4(width, height, smoothedAmplitude, lerpedBuffer, this);
+
     }//end setup
 
     public void draw()
@@ -82,11 +84,7 @@ public class BryansVisual extends Visual
         float detail = 5f;
         halfH = height / 2;
         halfW = width/2;
-        float average = 0;
-        float sum = 0;
         n4 = borderx/2;
-
-        
         
         //details --> minimum size for tv details
         if(height >= 500 && width >= 500)
@@ -119,20 +117,28 @@ public class BryansVisual extends Visual
         //tv screen
         noStroke();
         fill(20);
-        
-        rect(borderx, bordery, width-(borderx*2), height-(bordery*2), detail*2);
+        rect(borderx, bordery, width-(borderx*2), height-(bordery*2));
         switch (mode) {
-            case 0:
+            case 1:
             {   // iterate through the width of the screen
                 viz1.render();
                 break;
             }
-            case 1:
+            case 2:
             {
                 viz2.render();
                 break;
             }
-                
+            case 3:
+            {
+                viz3.render();
+                break;
+            }
+            case 4:
+            {
+                viz4.render();
+                break;
+            }
         }//end switch
     }//end draw
 

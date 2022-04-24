@@ -1,4 +1,4 @@
-package c123456;
+package C20441826;
 import ie.tudublin.Visual;
 
 public class Viz1 extends Visual 
@@ -6,12 +6,12 @@ public class Viz1 extends Visual
     
     int x, j;
 
-    BryansVisual viz;
+    VisualSetup viz;
     float[] lerpedBuffer;
     float[] lerpedBufferY;
     float width, height;
 
-    public Viz1(float width, float height, float lerpedBuffer[], BryansVisual viz)
+    public Viz1(float width, float height, float lerpedBuffer[], VisualSetup viz)
     {
         this.height = height;
         this.width = width;
@@ -26,30 +26,29 @@ public class Viz1 extends Visual
         float borderx = width * 0.2f;
         float bordery = height * 0.25f;
         float halfH = height/2;
-        float halfW = width/2;
-        float average = 0;
+        //float halfW = width/2;
         float sum = 0;
-        float averageY = 0;
         float sumY = 0;
-    
+        float average = 0;
+        float averageY = 0;
 
         for(int i = (int)borderx ; i < width-borderx ; i ++)
         {
             sum += abs(viz.ab.get(i));
             lerpedBuffer[i] = lerp(lerpedBuffer[i], viz.ab.get(i), 0.2f);
         }
-        average= sum / width-borderx;
+        
+        average = sum / width - borderx;
 
-        for(int i = (int)bordery ; i < height-bordery ; i ++)
+        for(int i = (int)bordery ; i < height-bordery ; i++)
         {
 
             sumY += abs(viz.ab.get(i));
             lerpedBufferY[i] = lerp(lerpedBufferY[i], viz.ab.get(i), 0.2f);
             
         }
-        averageY= sumY / height-bordery;
+        averageY = sumY / height-bordery;
         
-
         for(int i = (int)borderx ; i < width-borderx ; i ++)
         {
             viz.colorMode(HSB);
