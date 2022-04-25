@@ -51,7 +51,7 @@ public class Viz1 extends Visual
         
         for(int i = (int)borderx ; i < width-borderx ; i ++)
         {
-            viz.colorMode(HSB);
+
             //float c = map(ab.get(i), -1, 1, 0, 255);
             float c = map(i, 0, width-borderx, 0, 255);
             viz.stroke(c, 255, 255);

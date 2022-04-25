@@ -9,12 +9,14 @@ import ddf.minim.Minim;
 
 public class VisualSetup extends Visual 
 {
+
+    //declare variables
     Minim minim;
     AudioPlayer ap;
     AudioInput ai;
     AudioBuffer ab;
     int x, j;
-    int mode = 0;
+    int mode = 1;
     float lerpedBuffer[];
     float y = 0;
     float smoothedY = 0;
@@ -29,31 +31,46 @@ public class VisualSetup extends Visual
     Viz4 viz4;
     float n4;
     
+    //settings
     public void settings()
     {
-        size(500, 500, P3D);//min size for tv graphic is 500 x 500
+        size(1000,500, P3D);//min size for tv graphic is 500 x 500
         println("CWD: " + System.getProperty("user.dir"));//current working directory
         fullScreen(P3D,SPAN);// full screen
     }//end settings
 
-    public void keyPressed() {
-		if (key >= '0' && key <= '9') {
+    //check for key press
+    public void keyPressed() 
+    {
+        //for choosing visualizations
+		if (key >= '1' && key <= '6') 
+        {
 			mode = key - '0';
-		}
-		if (keyCode == ' ') {
-            if (ap.isPlaying()) {
+		}//end if statement
+        //spacebar for pausing
+		if (keyCode == ' ') 
+        {
+            //if playing
+            if (ap.isPlaying()) 
+            {
+                //if paused
                 ap.pause();
-            } else {
+            }//end if statement
+            //if paused
+            else 
+            {
+                //restart the song and play
                 ap.rewind();
                 ap.play();
-            }
-        }
-	}
+            }//end else statement
+        }//end if statement
+	}//end key pressed
 
+    //setup
     public void setup()
     {
         minim = new Minim(this);
-        colorMode(RGB);
+        colorMode(HSB);
         setFrameSize(256);
         startMinim();
         //startListening(); 
@@ -63,19 +80,19 @@ public class VisualSetup extends Visual
         ab = ap.mix;
         y = height / 2;
         smoothedY = y;
-        
         lerpedBuffer = new float[width];
+        //declare visualizations
         viz1 = new Viz1(width, height, lerpedBuffer, this);
         viz2 = new Viz2(width, height, this);
         viz3 = new Viz3(width, height, smoothedAmplitude, lerpedBuffer, this);
         viz4 = new Viz4(width, height, smoothedAmplitude, lerpedBuffer, this);
-
     }//end setup
 
+    //draw
     public void draw()
     {
         //background
-        background(100,100,100);
+        background(100,0,100);
         noStroke();
         //border calculation
         borderx = width * 0.2f;
@@ -85,13 +102,11 @@ public class VisualSetup extends Visual
         halfH = height / 2;
         halfW = width/2;
         n4 = borderx/2;
-        
         //details --> minimum size for tv details
         if(height >= 500 && width >= 500)
         {
-            colorMode(RGB);
             //desk
-            fill(59, 32, 18);
+            fill(16, 100, 50);
             quad(width/24,height,width/8,height-height/3,width-width/8,height-height/3,width-width/24,height);
             //tv frame
             fill(150); 
@@ -109,42 +124,64 @@ public class VisualSetup extends Visual
             rect(borderx + (frame*(float)2.5) + frame, (bordery + height-(bordery*2)) + (detail*3) + (frame / 2), frame - (frame/3), frame, detail);//channel button prev
             rect(borderx + (frame*(float)2.5) + frame*2, (bordery + height-(bordery*2)) + (detail*3) + (frame / 2), frame - (frame/3), frame, detail);//channel button prev
             strokeWeight(2);//proper stroke weight
-            stroke(92, 145, 230);//light blue
+            stroke(140, 140, 180);//light blue
             circle(borderx + (frame*(float)7.5),(bordery + height-(bordery*2)) + (detail*3) + (frame),frame/2);//line in
-            stroke(115, 199, 132);//light green
+            stroke(90, 140, 180);//light green
             circle(borderx + (frame*(float)7.5) + frame,(bordery + height-(bordery*2)) + (detail*3) + (frame),frame/2);//line out
         }//end if statement
         //tv screen
         noStroke();
         fill(20);
         rect(borderx, bordery, width-(borderx*2), height-(bordery*2));
-        switch (mode) {
+        //switching visualizations
+        switch (mode) 
+        {
+            //first visualization
             case 1:
-            {   // iterate through the width of the screen
+            {
                 viz1.render();
                 break;
-            }
+            }//end case 1
+            //second visualization
             case 2:
             {
                 viz2.render();
                 break;
-            }
+            }//end case 2
+            //third visualization
             case 3:
             {
                 viz3.render();
                 break;
-            }
+            }//end case 3
+            //fourth visualization
             case 4:
             {
                 viz4.render();
                 break;
-            }
+            }//end case 4
+            /*
+            //fifth visualization
+            case 5:
+            {
+                viz5.render();
+            }//end case 5
+            //final visualization
+            case 6:
+            {
+                viz6.render();
+            }//end case 
+            */
         }//end switch
     }//end draw
 
+    //control tv
     public void mouseClicked()
     {   
+        //declare local variable
         float detail = 5f;
+
+        //first button --> control play and pause
         if (mouseX >= borderx && mouseX <= width-borderx && mouseY >= (bordery + height-(bordery*2)) + detail*3 && mouseY <= ((bordery + height-(bordery*2)) + detail*3) + 60f)
         {
             if (ap.isPlaying())
@@ -155,7 +192,21 @@ public class VisualSetup extends Visual
             {
                 ap.play();
             }
+        }//end if statement
+
+        /*
+        //second button --> previous visualization
+        if()
+        {
+
         }
-    }
+        //third button --> next visualization
+        if()
+        {
+            
+        }
+        */
+
+    }//end mouseClicked
 
 }//end NameVisual

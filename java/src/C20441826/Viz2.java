@@ -22,7 +22,6 @@ public class Viz2 extends Visual
 
     public void render()
     {
-        viz.colorMode(HSB);
 
         viz.translate(width/2, height/2);
         
