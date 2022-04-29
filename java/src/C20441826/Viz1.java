@@ -1,80 +1,76 @@
 package C20441826;
 import ie.tudublin.Visual;
+import processing.core.PApplet;
 
-public class Viz1 extends Visual 
+public class Viz1 
 {
     
-    int x, j;
-
+    float x, y;
     VisualSetup viz;
-    float[] lerpedBuffer;
+    float[] lerpedBufferX;
     float[] lerpedBufferY;
     float width, height;
 
+    //constructor for first visualizer
     public Viz1(float width, float height, float lerpedBuffer[], VisualSetup viz)
     {
         this.height = height;
         this.width = width;
         this.viz = viz;
-        this.lerpedBuffer = lerpedBuffer;
+        this.lerpedBufferX = lerpedBuffer;
         this.lerpedBufferY = lerpedBuffer;
     }
 
+    // render class called from draw
     public void render()
     {
-
+        // Calculate distance from sides of tv
         float borderx = width * 0.2f;
         float bordery = height * 0.25f;
-        float halfH = height/2;
-        //float halfW = width/2;
-        float sum = 0;
-        float sumY = 0;
-        float average = 0;
-        float averageY = 0;
-
-        for(int i = (int)borderx ; i < width-borderx ; i ++)
-        {
-            sum += abs(viz.ab.get(i));
-            lerpedBuffer[i] = lerp(lerpedBuffer[i], viz.ab.get(i), 0.2f);
-        }
         
-        average = sum / width - borderx;
+        // Calculate half of height
+        float halfH = height/2;
 
+        // calculate lerped buffer for the visualizers going across the y axis of the screen
         for(int i = (int)bordery ; i < height-bordery ; i++)
         {
-
-            sumY += abs(viz.ab.get(i));
-            lerpedBufferY[i] = lerp(lerpedBufferY[i], viz.ab.get(i), 0.2f);
-            
+            lerpedBufferY[i] = PApplet.lerp(lerpedBufferY[i], viz.ab.get(i), 0.2f);
         }
-        averageY = sumY / height-bordery;
         
-        for(int i = (int)borderx ; i < width-borderx ; i ++)
+        // vizualizers at bottom and top of the screen including sporadic circles
+        for (int i = (int)borderx ; i < width-borderx ; i ++)
         {
-
-            //float c = map(ab.get(i), -1, 1, 0, 255);
-            float c = map(i, 0, width-borderx, 0, 255);
+            //colour vizualizers
+            float c = PApplet.map(i, 0, width-borderx, 0, 255);
+            
+            //colour used for stroke of the line line vizualizers
             viz.stroke(c, 255, 255);
-            float f = lerpedBuffer[i] * bordery;
-            //line(i, (halfH/2) + f + (bordery), i, (halfH/2) - f + (bordery));
+
+            // calculate lerped buffer for the visualizers going across the x axis of the screen
+            lerpedBufferX[i] = PApplet.lerp(lerpedBufferX[i], viz.ab.get(i), 0.2f);
+            
+            //calculate frequency to be relative to the range from the top or bottom of the border to the screen
+            float f = lerpedBufferX[i] * bordery;
+
+            // bottom visualizer, if statement filters out bottom of the bottom line vizualizer
             if ((halfH/2) + f + (bordery*2) < (halfH/2) - f + (bordery*2))
             {
                 viz.line(i, (halfH/2) + (f/2) + (bordery*2), i, (halfH/2) + (bordery*2));  
-                
             }
+            // top visualizer, if statement filters out top of the line top vizualizer
             if ((halfH/2) + f > (halfH/2) - f)
             {
                 viz.line(i, (halfH/2) + (f/2), i, (halfH/2));
-                
             }
 
-            
-            x = (int)(sin(radians(i))*(sin(i+j)*5));
-            float y = sin(i+j)*width-(borderx*2);
+            // calculate x and y to spread of ellipses
+            x = PApplet.sin(i)*5;
+            y = PApplet.sin(i)*width-(borderx*2);
+
+            //filter out remaining circles outside of tv
             if ( i + x > borderx + 10 && i+x < width-borderx - 10 && i+y > bordery + 10 && i+y < height - bordery - 10)
             {
                 viz.ellipse(i + x, i + y, f/3, f/3);
-                //ellipse(i + x, (halfH/2) + (f*2) + (bordery), f/2, f/2);
             }
             
         }
@@ -82,44 +78,40 @@ public class Viz1 extends Visual
         // iterate through the width of the screen - 20 on both sides so visualizer doesnt merge with side visualizers
         for(int i = (int)borderx ; i < width-(borderx*2); i ++)
         {
-
-            //float c = map(ab.get(i), -1, 1, 0, 255);
-            float c = map(i, 0, width-(borderx*2), 0, 255);
+            // colour for main vizualizer
+            float c = PApplet.map(i, 0, width-borderx, 255, 0);
             viz.stroke(c, 255, 255);
-            float f = lerpedBuffer[i] * bordery;
 
+            //calculate frequency to be relative to the range from the bottom or top of the border to the screen
+            float f = lerpedBufferX[i] * bordery;
+
+            // main vizualizer in the center
             viz.line(i+10, (halfH) + (f), width-10- (i), (halfH)-(f) );
         }
-        /*for(int i = (int)bordery + 20 ; i < height-bordery - 20; i ++)
-        {
-            //float c = map(ab.get(i), -1, 1, 0, 255);
-            float c = map(i, 0, width-borderx, 0, 255);
-            stroke(c, 255, 255);
-            float f = lerpedBuffer[i] * bordery;
-
-            line((halfH/2) + f + (bordery), i, (halfW/2)-f + (bordery), height - (i));
-            
-        }*/
-
-        // iterate through the length of the screen
+        
+        // iterate through the length of the screen, vizualizers on left and right hand side of the screen
         for(int i = (int)bordery; i < height -bordery; i ++)
         {
-            //float c = map(ab.get(i), -1, 1, 0, 255);
-            float c = map(i, 0, height -bordery, 0, 255);
+            // colour for left and right vizualizers
+            float c = PApplet.map(i, 0, height-bordery, 0, 255);
             viz.stroke(c, 255, 255);
+
+            // calculate frequency to be relative to the range from the bottom or top of the border to the screen
             float f = lerpedBufferY[i] * bordery;
             
+            // left visualizer, if statement filters out left side of the left line vizualizer
             if (f + (borderx*4) > borderx*4)
             {
                 viz.line(borderx, i, f/2 + borderx, i);
             }
+            // right visualizer, if statement filters out right side of the right line vizualizer
             if (f + (borderx*4) < borderx*4)
             {
                 viz.line(borderx*4, i, f/2 + (borderx*4), i);
             }
             
         }
-        j += 0.04;
+
     }
     
 }
