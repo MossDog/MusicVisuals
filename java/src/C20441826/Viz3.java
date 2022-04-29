@@ -1,29 +1,24 @@
 package C20441826;
-import ie.tudublin.Visual;
 
-public class Viz3 extends Visual 
+public class Viz3 extends VisualSetup
 {
     
     //declare variables
     VisualSetup viz;
     float[] lerpedBuffer;
     float[] lerpedBufferY;
-    float width, height, smoothedAmplitude, smoothedAmplitudeY;
+    float width, height; 
+    float smoothedAmplitude, smoothedAmplitudeY;
 
-    //constructor
-    public Viz3(float width, float height, float smoothedAmplitude, float lerpedBuffer[], VisualSetup viz)
+    //constructor for third visualization
+    public Viz3(float width, float height, float lerpedBuffer[], VisualSetup viz)
     {
         this.height = height;
         this.width = width;
-        this.smoothedAmplitude = smoothedAmplitude;
-        this.smoothedAmplitudeY = smoothedAmplitude;
         this.lerpedBuffer = lerpedBuffer;
         this.lerpedBufferY = lerpedBuffer;
         this.viz = viz;
     }//end Viz3
-
-    //declare off
-    float off = 0;
 
     //render visualization
     public void render()
@@ -36,25 +31,24 @@ public class Viz3 extends Visual
         float sumy = 0;
         float borderx = width * 0.2f;
         float bordery = height * 0.25f;
-        off += 1;
 
-        //calculate sum and lerped buffer for x axis
-        for(int i = (int)borderx; i < width-borderx ; i ++)
+        //calculate sum and lerped buffer for tv x axis
+        for(int i = (int)borderx; i < width-borderx; i++)
         {
             sum += abs(viz.ab.get(i));
             lerpedBuffer[i] = lerp(lerpedBuffer[i], viz.ab.get(i), 0.2f);
         }//end for loop
-        //calculate average and smoothed amplitude for x axis
+        //calculate average and smoothed amplitude for tv x axis
         average = sum / (float) viz.ab.size();
         smoothedAmplitude = lerp(smoothedAmplitude, average, 0.2f);
 
-        //calculate sum and lerped buffer for y axis
-        for(int i = (int)bordery; i < height-bordery ; i ++)
+        //calculate sum and lerped buffer for tv y axis
+        for(int i = (int)bordery; i < height-bordery; i++)
         {
             sumy += abs(viz.ab.get(i));
             lerpedBufferY[i] = lerp(lerpedBufferY[i], viz.ab.get(i), 0.2f);
         }//end for loop
-        //calculate average and smoothed amplitude for y axis
+        //calculate average and smoothed amplitude for tv y axis
         averagey = sumy / (float) viz.ab.size();
         smoothedAmplitudeY = lerp(smoothedAmplitudeY, averagey, 0.2f);
 
@@ -80,9 +74,11 @@ public class Viz3 extends Visual
         //left and right square visualizer
         for(int i = (int)(height/2 - ((height + width) / 16)); i < (height) - (height/2) + ((height + width) / 16); i++)
         {
-            float d = map(i, 0, height - borderx, 0, 255);
+            //map colours
+            float d = map(i, (int)(height/2 - ((height + width) / 16)), (height) - (height/2) + ((height + width) / 16), 0, 255);
             viz.stroke(d, 255, 255);
-            float f = lerpedBufferY[i] * borderx;
+            //line visualizers
+            float f = lerpedBufferY[i] * bordery;
             viz.line(width / 2 - ((height + width) / 16), i, f/3 + width / 2 - ((height + width) / 16), i);
             viz.line(width / 2 + ((height + width) / 16), i, f/3 + width / 2 + ((height + width) / 16), i);
         }//end for loop
@@ -90,36 +86,40 @@ public class Viz3 extends Visual
         //top and bottom square visualizer
         for(int i = (int)(width/2 - ((height + width) / 16)); i < width - width/2 + ((height + width) / 16); i++)
         {
-            float d = map(i, 0, width - bordery, 0, 255);
+            //map colours
+            float d = map(i, (int)(width/2 - ((height + width) / 16)), width - width/2 + ((height + width) / 16), 0, 255);
             viz.stroke(d, 255, 255);
-            float f = lerpedBuffer[i] * bordery;
+            //line visualizers
+            float f = lerpedBuffer[i] * borderx;
             viz.line(i, height / 2 - ((height + width) / 16), i, f/3 + height / 2 - ((height + width) / 16));
             viz.line(i, height / 2 + ((height + width) / 16), i, f/3 + height / 2 + ((height + width) / 16));
         }//end for loop
 
         //sliders
+        //two white lines for slider
         viz.stroke(255, 0, 255);
         viz.line(borderx+borderx/3,bordery+bordery/5,borderx+borderx/3,height-bordery-bordery/5);
         viz.line(width-borderx-borderx/3,bordery+bordery/5,width-borderx-borderx/3,height-bordery-bordery/5);
+        //four circle ends on sliders
         viz.fill(0,0,255);
         viz.circle(borderx+borderx/3,bordery+bordery/5,(height + width) / 320);
         viz.circle(borderx+borderx/3,height-bordery-bordery/5,(height + width) / 320);
         viz.circle(width-borderx-borderx/3,bordery+bordery/5,(height + width) / 320);
         viz.circle(width-borderx-borderx/3,height-bordery-bordery/5,(height + width) / 320);
-
+        //squares running up line slider
         //checking to make sure the square is on the slide
-        if(bordery+bordery/5 <= (height-bordery-bordery/5) - (smoothedAmplitude * (height + width)))
+        if(bordery+bordery/5 <= (height-bordery-bordery/5) - ((smoothedAmplitudeY * (height + width))*2))
         {
             viz.rectMode(CENTER);
-            viz.square(borderx+borderx/3, (height-bordery-bordery/5) - (smoothedAmplitude * (height + width)), (height + width) / 80);
-            viz.square(width-borderx-borderx/3, (height-bordery-bordery/5) - (smoothedAmplitude * (height + width)), (height + width) / 80);
+            viz.square(borderx+borderx/3, (height-bordery-bordery/5) - (smoothedAmplitudeY * (height + width))*2, (height + width) / 80);
+            viz.square(width-borderx-borderx/3, (height-bordery-bordery/5) - (smoothedAmplitudeY * (height + width))*2, (height + width) / 80);
         }//end if statement
-
         //prevent the squares flying off the slider --> max
         else
         {
             viz.rectMode(CENTER);
             viz.fill(0,0,255);
+            //set square max height
             viz.square(borderx+borderx/3, bordery+bordery/5, (height + width) / 80);
             viz.square(width-borderx-borderx/3, bordery+bordery/5, (height + width) / 80);
         }//end else statement

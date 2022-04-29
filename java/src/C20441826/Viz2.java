@@ -1,9 +1,9 @@
 package C20441826;
-import ie.tudublin.Visual;
 
-public class Viz2 extends Visual 
+public class Viz2 extends VisualSetup
 {
 
+    //declare variables
     VisualSetup viz;
     float[] lerpedBuffer;
     float width, height;
@@ -13,13 +13,15 @@ public class Viz2 extends Visual
     float n6;
     float angle2;
 
+    //constructor for second visualizer
     public Viz2(float width, float height, VisualSetup viz)
     {
         this.height = height;
         this.width = width;
         this.viz = viz;
-    }
+    }//end Viz2
 
+    //render
     public void render()
     {
 
@@ -66,9 +68,7 @@ public class Viz2 extends Visual
             //viz.rect(x3, y3, viz.ap.left.get(i)*20, viz.ap.left.get(i)*10);
             //viz.rect(x, y, viz.ap.right.get(i)*10, viz.ap.left.get(i)*10);
             //viz.rect(x3, y3, viz.ap.right.get(i)*10, viz.ap.right.get(i)*20);
-            
-            
-            
+        
         }
         
         n4 += 0.0008;
@@ -77,8 +77,9 @@ public class Viz2 extends Visual
             n4 = 0;
         }
         n6 += 0.04;
-    }
+    }//end render
 
+    //
     private void star(float x, float y, float radius1, float radius2, int npoints) {
         float angle = TWO_PI / npoints;
         float halfAngle = angle/2;
@@ -93,5 +94,6 @@ public class Viz2 extends Visual
           viz.vertex(sx, sy);
         }
         viz.endShape(CLOSE);
-    }
-}
+    }//end star
+
+}//end class 

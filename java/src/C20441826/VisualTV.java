@@ -2,33 +2,35 @@ package C20441826;
 
 public class VisualTV extends VisualSetup
 {
+
+    //visual settings
     VisualSetup tv;
     float width;
     float height;
-    float frame = 30f;
-    float detail = 5f;
-    float halfH = height / 2;
-    float halfW = width/2;
-    
+
+    //visual tv constructor
     public VisualTV(float width, float height, VisualSetup tv)
     {
         this.height = height;
         this.width = width;
         this.tv = tv;
-    }
+    }//end constructor
 
+    //render
     public void render()
     {
+
+        //border calculation
         float borderx = width * 0.2f;
         float bordery = height * 0.25f;
-        float n4 = borderx/2;
+        //background
         tv.background(100,0,100);
-        tv.noStroke();
-        //border calculation
-        
+        tv.noStroke();  
+          
         //details --> minimum size for tv details
         if(height >= 500 && width >= 500)
         {
+
             //desk
             tv.fill(16, 100, 50);
             tv.quad(width/24,height,width/8,height-height/3,width-width/8,height-height/3,width-width/24,height);
@@ -52,13 +54,14 @@ public class VisualTV extends VisualSetup
             tv.circle(borderx + (frame*(float)7.5),(bordery + height-(bordery*2)) + (detail*3) + (frame),frame/2);//line in
             tv.stroke(90, 140, 180);//light green
             tv.circle(borderx + (frame*(float)7.5) + frame,(bordery + height-(bordery*2)) + (detail*3) + (frame),frame/2);//line out
+        
         }//end if statement
+
         //tv screen
         tv.noStroke();
         tv.fill(20);
         tv.rect(borderx, bordery, width-(borderx*2), height-(bordery*2));
-    }
 
+    }//end render
 
-    
-}
+}//end class

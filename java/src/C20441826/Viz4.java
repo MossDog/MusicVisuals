@@ -1,22 +1,20 @@
 package C20441826;
-import ie.tudublin.Visual;
 
-public class Viz4 extends Visual 
+public class Viz4 extends VisualSetup
 {
 
     //declare variables
     VisualSetup viz;
     float[] lerpedBuffer;
     float[] lerpedBufferY;
-    float width, height, smoothedAmplitude, smoothedAmplitudeY;
+    float width, height;
+    float smoothedAmplitude, smoothedAmplitudeY;
 
-    //constructor
-    public Viz4(float width, float height, float smoothedAmplitude, float lerpedBuffer[], VisualSetup viz)
+    //constructor for fourth visualization
+    public Viz4(float width, float height, float lerpedBuffer[], VisualSetup viz)
     {
         this.height = height;
         this.width = width;
-        this.smoothedAmplitude = smoothedAmplitude;
-        this.smoothedAmplitudeY = smoothedAmplitude;
         this.lerpedBuffer = lerpedBuffer;
         this.lerpedBufferY = lerpedBuffer;
         this.viz = viz;
@@ -49,7 +47,7 @@ public class Viz4 extends Visual
         {
             sumy += abs(viz.ab.get(i));
             lerpedBufferY[i] = lerp(lerpedBufferY[i], viz.ab.get(i), 0.2f);
-        }
+        }//end for loop
         //calculate average and smoothed amplitude for y axis
         averagey = sumy / (float) viz.ab.size();
         smoothedAmplitudeY = lerp(smoothedAmplitudeY, averagey, 0.2f);
@@ -61,8 +59,11 @@ public class Viz4 extends Visual
         //wave visualizer
         for(int i = (int)borderx; i < width-borderx; i++)
         {
-            viz.stroke((smoothedAmplitudeY * i * 3),255,255);
+            //visual colour
+            float d = map(i, (int)borderx, width-borderx, 0, 255);
+            viz.stroke(d,255,255);
             float f = lerpedBufferY[i] * bordery * 0.2f;
+            //three different visualizer lines
             viz.line(i,centery+f,i,centery-f);
             viz.line(i,(centery - centery/3)+f,i,(centery - centery/3)-f);
             viz.line(i,(centery + centery/3)+f,i,(centery + centery/3)-f);
@@ -72,6 +73,7 @@ public class Viz4 extends Visual
         //protect triangle visualisation
         for(int i = 16;i < 64;i+=5)
         {
+            //cover back of triangles
             viz.strokeWeight((height + width) / 100);
             viz.stroke(0,0,20);
             viz.triangle((centerx-(height + width) / i)-(smoothedAmplitude * i * 4),(centery+(height + width) / i)+(smoothedAmplitude * i * 4),(centerx+(height + width) / i)+(smoothedAmplitude * i * 4),(centery+(height + width) / i)+(smoothedAmplitude * i * 4),centerx,(centery-(height + width) / i)-(smoothedAmplitude * i * 4));
@@ -82,7 +84,9 @@ public class Viz4 extends Visual
         {
             viz.strokeWeight(1);
             viz.noFill();
+            //stroke respond to the music to change colour
             viz.stroke((smoothedAmplitude * i * 32),255,255);
+            //triangles expand to music
             viz.triangle((centerx-(height + width) / i)-(smoothedAmplitude * i * 4),(centery+(height + width) / i)+(smoothedAmplitude * i * 4),(centerx+(height + width) / i)+(smoothedAmplitude * i * 4),(centery+(height + width) / i)+(smoothedAmplitude * i * 4),centerx,(centery-(height + width) / i)-(smoothedAmplitude * i * 4));
         }//end for loop
 
