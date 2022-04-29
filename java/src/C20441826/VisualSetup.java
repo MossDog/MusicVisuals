@@ -35,7 +35,7 @@ public class VisualSetup extends Visual
     //settings
     public void settings()
     {
-        size(500,500, P3D);//min size for tv graphic is 500 x 500
+        size(700,700, P3D);//min size for tv graphic is 500 x 500
         println("CWD: " + System.getProperty("user.dir"));//current working directory
         //fullScreen(P3D,SPAN);// full screen
     }//end settings
@@ -83,7 +83,7 @@ public class VisualSetup extends Visual
         smoothedY = y;
         lerpedBuffer = new float[width];
         //declare visualizations
-        viz1 = new Viz1(width, height, lerpedBuffer, this);
+        viz1 = new Viz1(width, height, this);
         viz2 = new Viz2(width, height, this);
         viz3 = new Viz3(width, height, smoothedAmplitude, lerpedBuffer, this);
         viz4 = new Viz4(width, height, smoothedAmplitude, lerpedBuffer, this);
@@ -136,38 +136,98 @@ public class VisualSetup extends Visual
         }//end switch
     }//end draw
 
-    //control tv
     public void mouseClicked()
     {   
         //declare local variable
         float detail = 5f;
+        float frame = 30f;
 
         //first button --> control play and pause
-        if (mouseX >= borderx && mouseX <= width-borderx && mouseY >= (bordery + height-(bordery*2)) + detail*3 && mouseY <= ((bordery + height-(bordery*2)) + detail*3) + 60f)
+        if (mouseX >= borderx + frame && mouseX <= borderx + frame + (frame*2) && mouseY >= ((bordery + height-(bordery*2)) + (detail*3) + (frame / 2)) && mouseY <= ((bordery + height-(bordery*2)) + (detail*3) + (frame / 2)) + frame)
         {
             if (ap.isPlaying())
             {
                 ap.pause();
-            }
+            }//end if statement
             else
             {
                 ap.play();
-            }
+            }//end else statement
         }//end if statement
 
-        /*
         //second button --> previous visualization
-        if()
+        if(mouseX >= borderx + (frame*(float)2.5) + frame && mouseX <= borderx + (frame*(float)2.5) + frame + (frame - (frame/3))&& mouseY >= (bordery + height-(bordery*2)) + (detail*3) + (frame / 2) && mouseY <= (bordery + height-(bordery*2)) + (detail*3) + (frame / 2) + frame)
         {
+            //first visualization
+            if(mode == 1)
+            {
+                mode = 6;
+            }//end if statement
+            //second visualization
+            else if(mode == 2)
+            {
+                mode = 1;
+            }//end if statement
+            //third visualization
+            else if(mode == 3)
+            {
+                mode = 2;
+            }//end if statement
+            //fourth visualization
+            else if(mode == 4)
+            {
+                mode = 3;
+            }//end if statement
+            //fifth visualization
+            else if(mode == 5)
+            {
+                mode = 4;
+            }//end if statement
+            //sixth visualization
+            else if(mode == 6)
+            {
+                mode = 5;
+            }//end if statement
+        }//end if statement
 
-        }
         //third button --> next visualization
-        if()
+        if(mouseX >= borderx + (frame*(float)2.5) + (frame*2) && mouseX <= borderx + (frame*(float)2.5) + (frame*2) + (frame - (frame/3))&& mouseY >= (bordery + height-(bordery*2)) + (detail*3) + (frame / 2) && mouseY <= (bordery + height-(bordery*2)) + (detail*3) + (frame / 2) + frame)
         {
-            
-        }
-        */
+            //first visualization
+            if(mode == 1)
+            {
+                mode = 2;
+            }//end if statement
+            //second visualization
+            else if(mode == 2)
+            {
+                mode = 3;
+            }//end if statement
+            //third visualization
+            else if(mode == 3)
+            {
+                mode = 4;
+            }//end if statement
+            //fourth visualization
+            else if(mode == 4)
+            {
+                mode = 5;
+            }//end if statement
+            //fifth visualization
+            else if(mode == 5)
+            {
+                mode = 6;
+            }//end if statement
+            //sixth visualization
+            else if(mode == 6)
+            {
+                mode = 1;
+            }//end if statement
+
+        }//end if statement
 
     }//end mouseClicked
+
+    
 
 }//end NameVisual

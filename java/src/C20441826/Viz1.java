@@ -5,20 +5,20 @@ import processing.core.PApplet;
 public class Viz1 
 {
     
-    float x, y;
-    VisualSetup viz;
-    float[] lerpedBufferX;
-    float[] lerpedBufferY;
-    float width, height;
+    private float x, y;
+    private VisualSetup viz;
+    private float[] lerpedBufferX;
+    private float[] lerpedBufferY;
+    
+    private float width, height;
 
     //constructor for first visualizer
-    public Viz1(float width, float height, float lerpedBuffer[], VisualSetup viz)
+    public Viz1(float width, float height, VisualSetup viz)
     {
         this.height = height;
         this.width = width;
         this.viz = viz;
-        this.lerpedBufferX = lerpedBuffer;
-        this.lerpedBufferY = lerpedBuffer;
+        
     }
 
     // render class called from draw
@@ -30,6 +30,9 @@ public class Viz1
         
         // Calculate half of height
         float halfH = height/2;
+
+        lerpedBufferX = viz.lerpedBuffer;
+        lerpedBufferY = viz.lerpedBuffer;
 
         // calculate lerped buffer for the visualizers going across the y axis of the screen
         for(int i = (int)bordery ; i < height-bordery ; i++)

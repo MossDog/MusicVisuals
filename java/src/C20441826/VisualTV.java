@@ -1,6 +1,6 @@
 package C20441826;
 
-public class VisualTV
+public class VisualTV extends VisualSetup
 {
     VisualSetup tv;
     float width;
@@ -58,5 +58,7 @@ public class VisualTV
         tv.fill(20);
         tv.rect(borderx, bordery, width-(borderx*2), height-(bordery*2));
     }
+
+
     
 }
