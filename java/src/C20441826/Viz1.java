@@ -1,7 +1,9 @@
 package C20441826;
 
+import processing.core.PVector;
+
 public class Viz1 extends VisualSetup
-{
+{ //start Viz1 class
     
     //declare variables
     private float x, y;
@@ -9,107 +11,102 @@ public class Viz1 extends VisualSetup
     private float[] lerpedBufferX;
     private float[] lerpedBufferY;
     private float width, height;
+    private PVector position;
+    private PVector border;
+    private PVector border2;
 
     //constructor for first visualizer
     public Viz1(float width, float height, float lerpedBuffer[], VisualSetup viz)
-    {
+    { //start Viz1
         this.height = height;
         this.width = width;
         this.viz = viz;
         this.lerpedBufferX = lerpedBuffer;
         this.lerpedBufferY = lerpedBuffer;
-    }//end Viz1
+    } //end Viz1
 
     // render class called from draw
     public void render()
     {
         
         //calculate distance from sides of tv
-        float borderx = width * 0.2f;
-        float bordery = height * 0.25f;
-        
-        //calculate half of height
-        float halfH = height/2;
-
-        //calculate lerped buffer for the visualizers going across the y axis of the screen
-        for(int i = (int)bordery ; i < height-bordery ; i++)
-        {
-            lerpedBufferY[i] = lerp(lerpedBufferY[i], viz.ab.get(i), 0.2f);
-        }//end for loop
+        position = new PVector(width/2, height/2);
+        border = new PVector(width * 0.2f, height * 0.25f);
+        border2 = new PVector(width-border.x, height -border.y);
         
         //vizualizers at bottom and top of the screen including sporadic circles
-        for (int i = (int)borderx ; i < width-borderx ; i ++)
-        {
+        for (int i = (int)border.x ; i < border2.x ; i ++)
+        { //start for loop
 
             //colour vizualizers
-            float c = map(i, 0, width-borderx, 0, 255);
+            float c = map(i, 0, border2.x, 0, 255);
             //colour used for stroke of the line line vizualizers
             viz.stroke(c, 255, 255);
 
             // calculate lerped buffer for the visualizers going across the x axis of the screen
             lerpedBufferX[i] = lerp(lerpedBufferX[i], viz.ab.get(i), 0.2f);
             //calculate frequency to be relative to the range from the top or bottom of the border to the screen
-            float f = lerpedBufferX[i] * bordery;
+            float f = lerpedBufferX[i] * border.y;
 
             //bottom visualizer, if statement filters out bottom of the bottom line vizualizer
-            if ((halfH/2) + f + (bordery*2) < (halfH/2) - f + (bordery*2))
-            {
-                viz.line(i, (halfH/2) + (f/2) + (bordery*2), i, (halfH/2) + (bordery*2));  
+            if ((position.x/2) + f + (border.y*2) < (position.x/2) - f + (border.y*2))
+            {//start if statement
+                viz.line(i, (position.x/2) + (f/2) + (border.y*2), i, (position.x/2) + (border.y*2));  
             }//end if statement
 
             //top visualizer, if statement filters out top of the line top vizualizer
-            if ((halfH/2) + f > (halfH/2) - f)
-            {
-                viz.line(i, (halfH/2) + (f/2), i, (halfH/2));
+            if ((position.x/2) + f > (position.x/2) - f)
+            {//start if statement
+                viz.line(i, (position.x/2) + (f/2), i, (position.x/2));
             }//end if statement
 
             // calculate x and y to spread of ellipses
             x = sin(i)*5;
-            y = sin(i)*width-(borderx*2);
+            y = sin(i)*width-(border.x*2);
 
             //filter out remaining circles outside of tv
-            if ( i + x > borderx + 20 && i+x < width-borderx - 20 && i+y > bordery + 20 && i+y < height - bordery - 20)
-            {
+            if ( i + x > border.x + 20 && i+x < border2.x - 20 && i+y > border.y + 20 && i+y < border2.y - 20)
+            {//start if statement
                 viz.ellipse(i + x, i + y, f/3, f/3);
             }//end if statement  
 
         }//end for loop
 
         // iterate through the width of the screen - 20 on both sides so visualizer doesnt merge with side visualizers
-        for(int i = (int)borderx ; i < width-(borderx*2); i ++)
-        {
+        for(int i = (int)border.x ; i < width-(border.x*2); i ++)
+        {//start for loop
 
             // colour for main vizualizer
-            float c = map(i, 0, width-borderx, 255, 0);
+            float c = map(i, 0, border2.x, 255, 0);
             viz.stroke(c, 255, 255);
             //calculate frequency to be relative to the range from the bottom or top of the border to the screen
-            float f = lerpedBufferX[i] * bordery;
+            float f = lerpedBufferX[i] * border.y;
             // main vizualizer in the center
-            viz.line(i+10, (halfH) + (f), width-10- (i), (halfH)-(f));
+            viz.line(i+10, (position.x) + (f), width-10- (i), (position.x)-(f));
 
         }//end for loop
 
         // iterate through the length of the screen, vizualizers on left and right hand side of the screen
-        for(int i = (int)bordery; i < height -bordery; i ++)
-        {
+        for(int i = (int)border.y; i < border2.y; i ++)
+        { //start for loop
 
             // colour for left and right vizualizers
-            float c = map(i, 0, height-bordery, 0, 255);
+            float c = map(i, 0, border2.y, 0, 255);
             viz.stroke(c, 255, 255);
 
             //calculate frequency to be relative to the range from the bottom or top of the border to the screen
-            float f = lerpedBufferY[i] * bordery;
+            float f = lerpedBufferY[i] * border.y;
 
             //left visualizer, if statement filters out left side of the left line vizualizer
-            if (f + (borderx*4) > borderx*4)
+            if (f + (border.x*4) > border.x*4)
             {
-                viz.line(borderx, i, f/2 + borderx, i);
+                viz.line(border.x, i, f/2 + border.x, i);
             }//end if statement
 
             //right visualizer, if statement filters out right side of the right line vizualizer
-            if (f + (borderx*4) < borderx*4)
+            if (f + (border.x*4) < border.x*4)
             {
-                viz.line(borderx*4, i, f/2 + (borderx*4), i);
+                viz.line(border.x*4, i, f/2 + (border.x*4), i);
             }//end if statement
 
         }//end for loop

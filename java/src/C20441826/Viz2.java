@@ -1,5 +1,7 @@
 package C20441826;
 
+import processing.core.PVector;
+
 public class Viz2 extends VisualSetup
 {
 
@@ -7,93 +9,96 @@ public class Viz2 extends VisualSetup
     VisualSetup viz;
     float[] lerpedBuffer;
     float width, height;
-    float borderx = width * 0.2f;
-    float bordery = height * 0.25f;
-    float n4;
-    float n6;
+    float n1;
+    float n2;
     float angle2;
+    PVector border;
+    PVector border2;
+    PVector position;
+    PVector outspread;
 
     //constructor for second visualizer
     public Viz2(float width, float height, VisualSetup viz)
-    {
+    {//start constructor
+
         this.height = height;
         this.width = width;
         this.viz = viz;
+
     }//end Viz2
 
-    //render
+    //render called from draw
     public void render()
-    {
+    { //start render method
 
-        viz.translate(width/2, height/2);
+        position = new PVector(width/2, height/2);
+        border = new PVector(width * 0.2f, height * 0.25f);
+        border2 = new PVector(width-border.x, height -border.y);
+        viz.translate(position.x, position.y);
         
-        for (int i = (int) borderx; i < width-borderx; i++) {
-            float c = map(i, 0, width-borderx, 0, 255);
+        for (int i = (int) border.x; i < border2.x; i++) 
+        { //start for loop
 
-            
-            float angle = sin(i+n4)* 10; 
+            float c = map(i, 0, border2.x, 0, 255);
+            float angle = sin(i+n1)* 10; 
             if (height >= width)
-            {
-                angle2 = sin(i+n6)* width; 
-            }
+            { //start if statement
+                angle2 = sin(i+n2)* width; 
+            } //end if statement
             else
-            {
-                angle2 = sin(i+n6)* height; 
-            }
+            { //start else statement
+                angle2 = sin(i+n2)* height; 
+            } //end else statement
             
-        
-            float x = (sin(radians(i))*(angle2))/4; // width of outspread
-            float y = (cos(radians(i))*(angle2))/4;
-        
-            //float x3 = sin(radians(i))*((width/2)/angle); 
+            // width and height of outspread
+            outspread = new PVector((sin(radians(i))*(angle2))/4, ((cos(radians(i))*(angle2)))/4.2f);
+
+            //for center circle of rectangles
             float y3 = cos(radians(i))*((width/2)/angle);
 
             //stroke(c, 255, 255);
             viz.fill(c, 255, 255);
 
+            //filter out rectangle pixels outside of tv
             if (y3 > -(height/5) && y3 < (height/5))
-            {
-                viz.rect(x, y3, viz.ap.left.get(i)*10, viz.ap.left.get(i)*10);
-            }
-            //if (x3 > -(width/5) && x3 < (width/5))
-            //{
-                //viz.rect(x3, y, viz.ap.left.get(i)*10, viz.ap.left.get(i)*10);
-            //}
-            //viz.ellipse(x, y, viz.ap.left.get(i)*20, viz.ap.left.get(i)*20);
-                    
+            { //start if statement
+                viz.rect(outspread.x, y3, viz.ap.left.get(i)*10, viz.ap.left.get(i)*10);
+            } //end if statement
 
-            star(x, y, viz.ap.left.get(i)*5, viz.ap.right.get(i)*5, 5);
-
-
-            //viz.rect(x3, y3, viz.ap.left.get(i)*20, viz.ap.left.get(i)*10);
-            //viz.rect(x, y, viz.ap.right.get(i)*10, viz.ap.left.get(i)*10);
-            //viz.rect(x3, y3, viz.ap.right.get(i)*10, viz.ap.right.get(i)*20);
+            // call star function to create star out of values, x, y, radius1, radius2, amount of points star will have
+            star(outspread.x, outspread.y, viz.ap.left.get(i)*5, viz.ap.right.get(i)*5, 5);
         
-        }
+        } //end for loop
         
-        n4 += 0.0008;
-        if (n4 > borderx && n4 < width-borderx)
-        {
-            n4 = 0;
-        }
-        n6 += 0.04;
+        // increment values to move for next use
+        n1 += 0.0008;
+        n2 += 0.04;
+
     }//end render
 
-    //
-    private void star(float x, float y, float radius1, float radius2, int npoints) {
+    // star function called from render
+    private void star(float x, float y, float radius1, float radius2, int npoints) 
+    { //start star function
         float angle = TWO_PI / npoints;
         float halfAngle = angle/2;
 
         viz.beginShape();
-        for (float a = 0; a < TWO_PI; a += angle) {
+
+        for (float a = 0; a < TWO_PI; a += angle) 
+        { //start for
+
           float sx = x + cos(a) * radius2;
           float sy = y + sin(a) * radius2;
+
           viz.vertex(sx, sy);
           sx = x + cos(a+halfAngle) * radius1;
           sy = y + sin(a+halfAngle) * radius1;
           viz.vertex(sx, sy);
-        }
+
+        } //end for
+
         viz.endShape(CLOSE);
+
     }//end star
 
 }//end class 

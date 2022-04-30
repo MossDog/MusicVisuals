@@ -1,5 +1,7 @@
 package C20441826;
 
+import processing.core.PVector;
+
 public class VisualTV extends VisualSetup
 {
 
@@ -7,6 +9,8 @@ public class VisualTV extends VisualSetup
     VisualSetup tv;
     float width;
     float height;
+    PVector border;
+    PVector border2;
 
     //visual tv constructor
     public VisualTV(float width, float height, VisualSetup tv)
@@ -21,8 +25,8 @@ public class VisualTV extends VisualSetup
     {
 
         //border calculation
-        float borderx = width * 0.2f;
-        float bordery = height * 0.25f;
+        border = new PVector(width * 0.2f, height * 0.25f);
+        border2 = new PVector(width-(border.x*2), height-(border.y*2));
         //background
         tv.background(100,0,100);
         tv.noStroke();  
@@ -36,31 +40,31 @@ public class VisualTV extends VisualSetup
             tv.quad(width/24,height,width/8,height-height/3,width-width/8,height-height/3,width-width/24,height);
             //tv frame
             tv.fill(150); 
-            tv.rect(borderx-frame, bordery-frame, width-(borderx*2)+(frame*2), height-(bordery*2)+(frame*4), detail*2);    
+            tv.rect(border.x-frame, border.y-frame, border2.x+(frame*2), border2.y+(frame*4), detail*2);    
             //details
             tv.fill(100);
-            tv.rect(borderx, (bordery + height-(bordery*2)) + detail, width-(borderx*2), detail, detail*2);//small thing indent
+            tv.rect(border.x, (border.y + border2.y) + detail, border2.x, detail, detail*2);//small thing indent
             tv.strokeWeight(2);
             tv.stroke(95);
-            tv.rect(borderx, (bordery + height-(bordery*2)) + detail*3, width-(borderx*2), frame*2, detail*2);//panel
+            tv.rect(border.x, (border.y + border2.y) + detail*3, border2.x, frame*2, detail*2);//panel
             tv.noStroke();
             //details --> input
             tv.fill(60);
-            tv.rect(borderx + frame, (bordery + height-(bordery*2)) + (detail*3) + (frame / 2), frame*2, frame, detail);//power button
-            tv.rect(borderx + (frame*(float)2.5) + frame, (bordery + height-(bordery*2)) + (detail*3) + (frame / 2), frame - (frame/3), frame, detail);//channel button prev
-            tv.rect(borderx + (frame*(float)2.5) + frame*2, (bordery + height-(bordery*2)) + (detail*3) + (frame / 2), frame - (frame/3), frame, detail);//channel button prev
+            tv.rect(border.x + frame, (border.y + border2.y) + (detail*3) + (frame / 2), frame*2, frame, detail);//power button
+            tv.rect(border.x + (frame*(float)2.5) + frame, (border.y + border2.y) + (detail*3) + (frame / 2), frame - (frame/3), frame, detail);//channel button prev
+            tv.rect(border.x + (frame*(float)2.5) + frame*2, (border.y + border2.y) + (detail*3) + (frame / 2), frame - (frame/3), frame, detail);//channel button prev
             tv.strokeWeight(2);//proper stroke weight
             tv.stroke(140, 140, 180);//light blue
-            tv.circle(borderx + (frame*(float)7.5),(bordery + height-(bordery*2)) + (detail*3) + (frame),frame/2);//line in
+            tv.circle(border.x + (frame*(float)7.5),(border.y + border2.y) + (detail*3) + (frame),frame/2);//line in
             tv.stroke(90, 140, 180);//light green
-            tv.circle(borderx + (frame*(float)7.5) + frame,(bordery + height-(bordery*2)) + (detail*3) + (frame),frame/2);//line out
+            tv.circle(border.x + (frame*(float)7.5) + frame,(border.y + border2.y) + (detail*3) + (frame),frame/2);//line out
         
         }//end if statement
 
         //tv screen
         tv.noStroke();
         tv.fill(20);
-        tv.rect(borderx, bordery, width-(borderx*2), height-(bordery*2));
+        tv.rect(border.x, border.y, border2.x, border2.y);
 
     }//end render
 

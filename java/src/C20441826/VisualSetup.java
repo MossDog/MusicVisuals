@@ -1,6 +1,7 @@
 package C20441826;
 
 import ie.tudublin.Visual;
+import processing.core.PVector;
 import ddf.minim.AudioBuffer;
 import ddf.minim.AudioInput;
 import ddf.minim.AudioPlayer;
@@ -18,12 +19,9 @@ public class VisualSetup extends Visual
     //audio response
     float lerpedBuffer[];
     //border calculation
-    float borderx = width * 0.2f;
-    float bordery = height * 0.25f;
+    public PVector border;
     float frame = 30f;
     float detail = 5f;
-    float halfH = height / 2;
-    float halfW = width/2;
     //declare visuals
     Viz1 viz1;
     Viz2 viz2;
@@ -31,14 +29,14 @@ public class VisualSetup extends Visual
     Viz4 viz4;
     VisualTV tv;
     //visual mode
-    int mode = 1;
+    private int mode = 1;
     
     //settings
     public void settings()
     {
         size(500,500, P3D);//min size for tv graphic is 500 x 500
         println("CWD: " + System.getProperty("user.dir"));//current working directory
-        fullScreen(P3D,SPAN);// full screen
+        //fullScreen(P3D,SPAN);// full screen
     }//end settings
 
     //check for key press
@@ -153,13 +151,12 @@ public class VisualSetup extends Visual
     {   
 
         //variables need to be in here
-        float borderx = width * 0.2f;
-        float bordery = height * 0.25f;
+        border = new PVector(width * 0.2f, height * 0.25f);
         float frame = 30f;
         float detail = 5f;
 
         //first button --> control play and pause
-        if (mouseX >= borderx + frame && mouseX <= borderx + frame + (frame*2) && mouseY >= ((bordery + height-(bordery*2)) + (detail*3) + (frame / 2)) && mouseY <= ((bordery + height-(bordery*2)) + (detail*3) + (frame / 2)) + frame)
+        if (mouseX >= border.x + frame && mouseX <= border.x + frame + (frame*2) && mouseY >= ((border.y + height-(border.y*2)) + (detail*3) + (frame / 2)) && mouseY <= ((border.y + height-(border.y*2)) + (detail*3) + (frame / 2)) + frame)
         {
 
             //if playing
@@ -176,7 +173,7 @@ public class VisualSetup extends Visual
         }//end if statement
 
         //second button --> previous visualization
-        if(mouseX >= borderx + (frame*(float)2.5) + frame && mouseX <= borderx + (frame*(float)2.5) + frame + (frame - (frame/3))&& mouseY >= (bordery + height-(bordery*2)) + (detail*3) + (frame / 2) && mouseY <= (bordery + height-(bordery*2)) + (detail*3) + (frame / 2) + frame)
+        if(mouseX >= border.x + (frame*(float)2.5) + frame && mouseX <= border.x + (frame*(float)2.5) + frame + (frame - (frame/3))&& mouseY >= (border.y + height-(border.y*2)) + (detail*3) + (frame / 2) && mouseY <= (border.y + height-(border.y*2)) + (detail*3) + (frame / 2) + frame)
         {
 
             //first visualization
@@ -213,7 +210,7 @@ public class VisualSetup extends Visual
         }//end if statement
 
         //third button --> next visualization
-        if(mouseX >= borderx + (frame*(float)2.5) + (frame*2) && mouseX <= borderx + (frame*(float)2.5) + (frame*2) + (frame - (frame/3))&& mouseY >= (bordery + height-(bordery*2)) + (detail*3) + (frame / 2) && mouseY <= (bordery + height-(bordery*2)) + (detail*3) + (frame / 2) + frame)
+        if(mouseX >= border.x + (frame*(float)2.5) + (frame*2) && mouseX <= border.x + (frame*(float)2.5) + (frame*2) + (frame - (frame/3))&& mouseY >= (border.y + height-(border.y*2)) + (detail*3) + (frame / 2) && mouseY <= (border.y + height-(border.y*2)) + (detail*3) + (frame / 2) + frame)
         {
 
             //first visualization
