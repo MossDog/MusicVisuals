@@ -8,7 +8,7 @@ public class Viz6 extends Visual
 {//Start Class
     //Declare Variables
     VisualSetup viz;
-    private float height;
+    private float width, height;
     private float high;
     private float openHeight, openWidth;
     private float bWidth, bHeight;
@@ -20,20 +20,23 @@ public class Viz6 extends Visual
     public Viz6(float width, float height, PVector border, PVector border2, PVector center, VisualSetup viz)
     {
         this.height = height;
+        this.width = width;
         this.viz = viz;
         this.border = border;
         this.border2 = border2;
         this.center = center;
-        this.openHeight = (height - (border.y * 2)) * 0.75f;
-        this.openWidth = ((openHeight/9) * 16) * 0.75f;
-        this.hoBlocks = 40;
-        this.bHeight = (height - (border.y*2)) / (hoBlocks/2);
-        this.bWidth = (width - (border.x*2)) / hoBlocks;
     }//End Constructor
 
     //Render method to be called from draw()
     public void render()
     {
+        //initialize variables
+        openHeight = (height - (border.y * 2)) * 0.75f;
+        openWidth = ((openHeight/9) * 16) * 0.75f;
+        hoBlocks = 40;
+        bHeight = (height - (border.y*2)) / (hoBlocks/2);
+        bWidth = (width - (border.x*2)) / hoBlocks;
+
         //Draw inside tv graphic
         viz.noStroke();
         for(int i = 0; i < hoBlocks; i++)

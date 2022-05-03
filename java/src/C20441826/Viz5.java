@@ -14,10 +14,12 @@ public class Viz5 extends Visual
     private float openHeight, openWidth;
     private float spotlightDist;
     private float offset1, offset2, offset3, offset4;
-    private float spotlightSpeed1, spotlightSpeed2;
     private float imgPixelDim;
     private PImage img;
     private PVector border, border2, center, imgOrigin;
+    private float spotlightSpeed1 = 2;
+    private float spotlightSpeed2 = 1;
+    
 
     //Constructor for fifth Visualizer
     public Viz5(float width, float height, PImage img, PVector border, PVector border2, PVector center, VisualSetup viz)
@@ -25,30 +27,26 @@ public class Viz5 extends Visual
         this.width = width;
         this.viz = viz;
         this.img = img;
-
         this.border = border;
         this.border2 = border2;
         this.center = center;
-
         this.openHeight = (height - (border.y * 2)) - 50;
         this.openWidth = (openHeight/9) * 16;
-        this.imgPixelDim = openHeight / img.height;
-
-        this.imgOrigin = new PVector(center.x - ((img.width * imgPixelDim)/2), center.y - ((img.height * imgPixelDim)/2));
-
-        this.spotlightDist = (openWidth - openHeight)/6;
-        this.spotlightSpeed1 = 2;
-        this.spotlightSpeed2 = 1;
-
         this.offset1 = ((center.x) - (openWidth/2)) + (spotlightDist);
         this.offset2 = ((center.x) - (openWidth/2)) + (spotlightDist * 2);
         this.offset3 = ((center.x) + (openHeight/2)) + (spotlightDist);
         this.offset4 = ((center.x) + (openHeight/2)) + (spotlightDist * 2);
     }//End Constructor
 
+    
+
     //Render method to be called from draw()
     public void render()
     {
+        imgPixelDim = openHeight / img.height;
+        imgOrigin = new PVector(center.x - ((img.width * imgPixelDim)/2), center.y - ((img.height * imgPixelDim)/2));
+        spotlightDist = (openWidth - openHeight)/6;
+
         //set colormode to RGB for duration of render
         viz.colorMode(RGB, 255, 255, 255);
 

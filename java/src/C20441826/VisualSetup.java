@@ -95,7 +95,7 @@ public class VisualSetup extends Visual
         border2 = new PVector(width - border.x, height - border.y);
         center = new PVector(width/2, height/2);
         //declare visualizations
-        viz1 = new Viz1(width, height, lerpedBuffer, border, border2, center, this);
+        viz1 = new Viz1(width, lerpedBuffer, border, border2, center, this);
         viz2 = new Viz2(width, height, border, border2, center, this);
         viz3 = new Viz3(width, height, lerpedBuffer, border, border2, center, this);
         viz4 = new Viz4(width, height, lerpedBuffer, border, border2, center, this);

@@ -16,7 +16,7 @@ public class Viz1 extends VisualSetup
 
 
     //constructor for first visualizer
-    public Viz1(float width, float height, float lerpedBuffer[], PVector border, PVector border2, PVector center, VisualSetup viz)
+    public Viz1(float width, float lerpedBuffer[], PVector border, PVector border2, PVector center, VisualSetup viz)
     { //start Viz1
         this.width = width;
         this.viz = viz;
