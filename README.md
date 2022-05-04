@@ -3,11 +3,9 @@
 ### Name & Student Number: 
 
 
-Ryan Deguara - C20309873
-
-Conor Davis - C20441826
-
-Luke Hughes - C20487654
+Ryan Deguara - C20309873  
+Conor Davis - C20441826  
+Luke Hughes - C20487654  
 
 
 ## Instructions
@@ -27,9 +25,9 @@ Alongside this, we have made almost everything completely responsive down to 500
 # Instructions
 When you start the visualizer, the song will automatically start playing and the first of six visuals will respond to the music. We made the main functionality around the TV graphic, so:
 
-Power Button (Big) --> Pause / Play the Music
-Previous Channel (Smaller Left) --> Previous Visualization
-Next Channel (Smaller Right) --> Next Visualization
+Power Button (Big) --> Pause / Play the Music  
+Previous Channel (Smaller Left) --> Previous Visualization  
+Next Channel (Smaller Right) --> Next Visualization  
 
 You can also change the visuals using the keys 1-6, alongside hitting the spacebar to pause and hitting it again to restart the song at the beginning if you really need to, to save you from restarting the visual all over again.
 
