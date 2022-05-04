@@ -9,15 +9,16 @@ public class VisualTV extends VisualSetup
     VisualSetup tv;
     float width;
     float height;
-    PVector border;
-    PVector border2;
+    PVector border, border2;
 
     //visual tv constructor
-    public VisualTV(float width, float height, VisualSetup tv)
+    public VisualTV(float width, float height, PVector border, PVector border2, VisualSetup tv)
     {
         this.height = height;
         this.width = width;
         this.tv = tv;
+        this.border = border;
+        this.border2 = border2;
     }//end constructor
 
     //render

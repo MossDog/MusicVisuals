@@ -21,8 +21,6 @@ public abstract class Visual extends PApplet
 	private float amplitude  = 0;
 	private float smothedAmplitude = 0;
 
-	
-	
 	public void startMinim() 
 	{
 		minim = new Minim(this);

@@ -1,11 +1,12 @@
 package C20441826;
 
 import ie.tudublin.Visual;
+import processing.core.PImage;
 import processing.core.PVector;
 import ddf.minim.AudioBuffer;
 import ddf.minim.AudioInput;
 import ddf.minim.AudioPlayer;
-import ddf.minim.Minim;
+import ddf.minim.*;
 
 public class VisualSetup extends Visual 
 {
@@ -19,7 +20,7 @@ public class VisualSetup extends Visual
     //audio response
     float lerpedBuffer[];
     //border calculation
-    public PVector border;
+    public PVector border, border2, center;
     float frame = 30f;
     float detail = 5f;
     //declare visuals
@@ -27,16 +28,19 @@ public class VisualSetup extends Visual
     Viz2 viz2;
     Viz3 viz3;
     Viz4 viz4;
+    Viz5 viz5;
+    Viz6 viz6;
     VisualTV tv;
+    PImage img;
     //visual mode
     private int mode = 1;
     
     //settings
     public void settings()
     {
-        size(500,500, P3D);//min size for tv graphic is 500 x 500
+        size(500, 500, P3D);//min size for tv graphic is 500 x 500
         println("CWD: " + System.getProperty("user.dir"));//current working directory
-        //fullScreen(P3D,SPAN);// full screen
+        fullScreen(P3D,SPAN);// full screen
     }//end settings
 
     //check for key press
@@ -76,19 +80,28 @@ public class VisualSetup extends Visual
     {
 
         //color mode
-        colorMode(HSB);
+        colorMode(HSB, 255, 255, 255);
         //begin visualization
         minim = new Minim(this);
+        startMinim();
         ap = minim.loadFile("rapgod.mp3", height+width);
         ap.play();
         ab = ap.mix;
         lerpedBuffer = new float[width];
+        //load image
+        img = loadImage("images/50x50.jpg");
+        //border and center calculation
+        border = new PVector(width * 0.2f, height * 0.25f);
+        border2 = new PVector(width - border.x, height - border.y);
+        center = new PVector(width/2, height/2);
         //declare visualizations
-        viz1 = new Viz1(width, height, lerpedBuffer, this);
-        viz2 = new Viz2(width, height, this);
-        viz3 = new Viz3(width, height, lerpedBuffer, this);
-        viz4 = new Viz4(width, height, lerpedBuffer, this);
-        tv = new VisualTV(width, height, this);
+        viz1 = new Viz1(width, lerpedBuffer, border, border2, center, this);
+        viz2 = new Viz2(width, height, border, border2, center, this);
+        viz3 = new Viz3(width, height, lerpedBuffer, border, border2, center, this);
+        viz4 = new Viz4(width, height, lerpedBuffer, border, border2, center, this);
+        viz5 = new Viz5(width, height, img, border, border2, center, this);
+        viz6 = new Viz6(width, height, border, border2, center, this);
+        tv = new VisualTV(width, height, border, border2, this);
 
     }//end setup
 
@@ -127,7 +140,6 @@ public class VisualSetup extends Visual
                 viz4.render();
                 break;
             }//end case 4
-            /*
             //fifth visualization
             case 5:
             {
@@ -140,7 +152,6 @@ public class VisualSetup extends Visual
                 viz6.render();
                 break;
             }//end case 
-            */
 
         }//end switch
 

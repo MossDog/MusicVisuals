@@ -1,5 +1,6 @@
 package C20441826;
 
+//import libraries
 import processing.core.PVector;
 
 public class Viz1 extends VisualSetup
@@ -10,29 +11,25 @@ public class Viz1 extends VisualSetup
     private VisualSetup viz;
     private float[] lerpedBufferX;
     private float[] lerpedBufferY;
-    private float width, height;
-    private PVector position;
-    private PVector border;
-    private PVector border2;
+    private float width;
+    private PVector border, border2, center;
+
 
     //constructor for first visualizer
-    public Viz1(float width, float height, float lerpedBuffer[], VisualSetup viz)
+    public Viz1(float width, float lerpedBuffer[], PVector border, PVector border2, PVector center, VisualSetup viz)
     { //start Viz1
-        this.height = height;
         this.width = width;
         this.viz = viz;
         this.lerpedBufferX = lerpedBuffer;
         this.lerpedBufferY = lerpedBuffer;
+        this.border = border;
+        this.border2 = border2;
+        this.center = center;
     } //end Viz1
 
-    // render class called from draw
+    // render method called from draw
     public void render()
     {
-        
-        //calculate distance from sides of tv
-        position = new PVector(width/2, height/2);
-        border = new PVector(width * 0.2f, height * 0.25f);
-        border2 = new PVector(width-border.x, height -border.y);
         
         //vizualizers at bottom and top of the screen including sporadic circles
         for (int i = (int)border.x ; i < border2.x ; i ++)
@@ -49,15 +46,15 @@ public class Viz1 extends VisualSetup
             float f = lerpedBufferX[i] * border.y;
 
             //bottom visualizer, if statement filters out bottom of the bottom line vizualizer
-            if ((position.x/2) + f + (border.y*2) < (position.x/2) - f + (border.y*2))
+            if ((center.y/2) + f + (border.y*2) < (center.y/2) - f + (border.y*2))
             {//start if statement
-                viz.line(i, (position.x/2) + (f/2) + (border.y*2), i, (position.x/2) + (border.y*2));  
+                viz.line(i, (center.y/2) + (f/2) + (border.y*2), i, (center.y/2) + (border.y*2));  
             }//end if statement
 
             //top visualizer, if statement filters out top of the line top vizualizer
-            if ((position.x/2) + f > (position.x/2) - f)
+            if ((center.y/2) + f > (center.y/2) - f)
             {//start if statement
-                viz.line(i, (position.x/2) + (f/2), i, (position.x/2));
+                viz.line(i, (center.y/2) + (f/2), i, (center.y/2));
             }//end if statement
 
             // calculate x and y to spread of ellipses
@@ -82,7 +79,7 @@ public class Viz1 extends VisualSetup
             //calculate frequency to be relative to the range from the bottom or top of the border to the screen
             float f = lerpedBufferX[i] * border.y;
             // main vizualizer in the center
-            viz.line(i+10, (position.x) + (f), width-10- (i), (position.x)-(f));
+            viz.line(i+10, (center.y) + (f), width-10- (i), (center.y)-(f));
 
         }//end for loop
 

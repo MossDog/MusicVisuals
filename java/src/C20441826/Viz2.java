@@ -12,18 +12,18 @@ public class Viz2 extends VisualSetup
     float n1;
     float n2;
     float angle2;
-    PVector border;
-    PVector border2;
-    PVector position;
-    PVector outspread;
+    PVector border, border2, position, outspread;
 
     //constructor for second visualizer
-    public Viz2(float width, float height, VisualSetup viz)
+    public Viz2(float width, float height, PVector border, PVector border2, PVector center, VisualSetup viz)
     {//start constructor
 
         this.height = height;
         this.width = width;
         this.viz = viz;
+        this.border = border;
+        this.border2 = border2;
+        this.position = center;
 
     }//end Viz2
 
@@ -31,9 +31,6 @@ public class Viz2 extends VisualSetup
     public void render()
     { //start render method
 
-        position = new PVector(width/2, height/2);
-        border = new PVector(width * 0.2f, height * 0.25f);
-        border2 = new PVector(width-border.x, height -border.y);
         viz.translate(position.x, position.y);
         
         for (int i = (int) border.x; i < border2.x; i++) 
