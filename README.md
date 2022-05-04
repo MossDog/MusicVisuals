@@ -15,7 +15,7 @@ Luke Hughes - C20487654
 - There is an example visualiser called MyVisual in the example package
 - Check out the WaveForm and AudioBandsVisual for examples of how to call the Processing functions from other classes that are not subclasses of PApplet
 
-# Description of the assignment
+# Description
 The main focus for this assignment was to have a television visualisation taking inspiration from the Rap God music video, to get that similar feeling and environment when you use our work, along with making the visuals fully dynamic in relation to resolution. 
 
 In the [video](https://www.youtube.com/watch?v=XbGs_qK2PQA), you can see him appear on the TV with some cool colour visualization in the background and we felt that this would be a good idea to base our project around. We developed a TV with six different visuals that appear on the screen, along with buttons on the TV that you can interact with to change the visual or to pause / play it. We each created two different visualizations to give a plethora of options to use to visualize the song as it reaches over six minutes in length. 
@@ -45,7 +45,7 @@ public void render()
 }
 ```
 
-# What Are We Most Proud Of?
+# What We Are Proud Of
 We are most proud of how we came together at multiple times over the last few weeks to really work together to make sure that we were on the same page. In our future careers, we will most certainly be faced with working in teams with other programmers, and this experience has helped immensely with gaining experience in working together with others, coming to compromises and discussions over what should be done next.
 
 # Video
