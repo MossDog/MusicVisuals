@@ -1,10 +1,9 @@
 package C20441826;
 
 //Import libraries
-import ie.tudublin.Visual;
 import processing.core.PVector;
 
-public class Viz6 extends Visual 
+public class Viz6 extends VisualSetup
 {//Start Class
     //Declare Variables
     VisualSetup viz;

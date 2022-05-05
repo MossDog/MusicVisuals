@@ -1,11 +1,10 @@
 package C20441826;
 
 //Import libraries
-import ie.tudublin.Visual;
 import processing.core.PImage;
 import processing.core.PVector;
 
-public class Viz5 extends Visual 
+public class Viz5 extends VisualSetup
 {//Start Class
     //Declare variables
     private VisualSetup viz;

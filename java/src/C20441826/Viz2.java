@@ -73,9 +73,9 @@ public class Viz2 extends VisualSetup
 
     }//end render
 
-    // star function called from render
+    //star function called from render
     private void star(float x, float y, float radius1, float radius2, int npoints) 
-    { //start star function
+    {//start star function
         float angle = TWO_PI / npoints;
         float halfAngle = angle/2;
 
