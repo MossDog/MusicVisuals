@@ -70,7 +70,7 @@ public class Viz1 extends VisualSetup
         }//end for loop
 
         // iterate through the width of the screen - 20 on both sides so visualizer doesnt merge with side visualizers
-        for(int i = (int)border.x ; i < width-(border.x*2); i ++)
+        for(int i = (int)border.x; i < width-(border.x*2); i ++)
         {//start for loop
 
             // colour for main vizualizer
@@ -84,15 +84,17 @@ public class Viz1 extends VisualSetup
         }//end for loop
 
         // iterate through the length of the screen, vizualizers on left and right hand side of the screen
-        for(int i = (int)border.y; i < border2.y; i ++)
+        for(int i = (int)border.y; i < border2.y; i++)
         { //start for loop
 
             // colour for left and right vizualizers
             float c = map(i, 0, border2.y, 0, 255);
             viz.stroke(c, 255, 255);
 
-            //calculate frequency to be relative to the range from the bottom or top of the border to the screen
-            float f = lerpedBufferY[i] * border.y;
+            //calculate lerped buffer for the visualizers going down the y axis of the screen
+            lerpedBufferY[i] = lerp(lerpedBufferY[i], viz.ab.get(i), 0.2f);
+            //calculate frequency to be relative to the range from the left or right of the border to the screen
+            float f = lerpedBufferY[i] * border.x;
 
             //left visualizer, if statement filters out left side of the left line vizualizer
             if (f + (border.x*4) > border.x*4)
