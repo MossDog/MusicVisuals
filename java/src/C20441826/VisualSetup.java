@@ -38,9 +38,9 @@ public class VisualSetup extends Visual
     //settings
     public void settings()
     {
-        size(900, 900, P3D);//min size for tv graphic is 500 x 500
+        size(500, 500, P3D);//min size for tv graphic is 500 x 500
         println("CWD: " + System.getProperty("user.dir"));//current working directory
-        //fullScreen(P3D,SPAN);// full screen
+        fullScreen(P3D,SPAN);// full screen
     }//end settings
 
     //check for key press
