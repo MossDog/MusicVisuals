@@ -85,8 +85,8 @@ public class Viz3 extends VisualSetup
             //map colours
             float d = map(i, (int)(height/2 - ((height + width) / 16)), (height) - (height/2) + ((height + width) / 16), 0, 255);
             viz.stroke(d, 255, 255);
-            //line visualizers
-            float f = lerpedBufferY[i] * border.y;
+            //line visualizers --> slightly tamed
+            float f = lerpedBufferY[i] * border.x * (float)0.9;
             viz.line(center.x - ((height + width) / 16), i, f/3 + center.x - ((height + width) / 16), i);
             viz.line(center.x + ((height + width) / 16), i, f/3 + center.x + ((height + width) / 16), i);
         }//end for loop
@@ -97,8 +97,8 @@ public class Viz3 extends VisualSetup
             //map colours
             float d = map(i, (int)(width/2 - ((height + width) / 16)), width - width/2 + ((height + width) / 16), 0, 255);
             viz.stroke(d, 255, 255);
-            //line visualizers
-            float f = lerpedBuffer[i] * border.x;
+            //line visualizers --> slightly tamed
+            float f = lerpedBuffer[i] * border.y * (float)0.9;
             viz.line(i, center.y - ((height + width) / 16), i, f/3 + center.y - ((height + width) / 16));
             viz.line(i, center.y + ((height + width) / 16), i, f/3 + center.y + ((height + width) / 16));
         }//end for loop
