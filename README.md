@@ -47,6 +47,7 @@ public void render()
 
 # What We Are Proud Of
 We are most proud of how we came together at multiple times over the last few weeks to really work together to make sure that we were on the same page. In our future careers, we will most certainly be faced with working in teams with other programmers, and this experience has helped immensely with gaining experience in working together with others, coming to compromises and discussions over what should be done next.
+We are also really proud of how the project turned out as we spent a lot of time working together but also individually to make the best vizualisations that we could in the time frame that we had and are happy how the vizualisations correspond to the music. We feel that we did the infamous Rap God song justice to Eminem as we took inspiration from the video and translated it well into our project to make the best vizualisations that we could come up with.
 
 # Video
 [![YouTube](https://i.ytimg.com/vi/XbGs_qK2PQA/maxresdefault.jpg)](https://www.youtube.com/watch?v=J2kHSSFA4NU)
