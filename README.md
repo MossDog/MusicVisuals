@@ -36,6 +36,23 @@ Do be aware that you can only pause / play the music obviously until the song is
 There is a video below showing us cycle through the visualizations with the buttons, along with instructions in this video on how to use them.
 
 # How It Works
+We have a main visual setup class, a tv visual class, along with six different classes for each of our visualizations.
+
+Inheritance Tree:
+
+![Inheritance Tree Image](https://cdn.discordapp.com/attachments/699535351886249984/971807330477936680/unknown.png)
+
+### Visual Setup
+Our main visual class is called VisualSetup and it extends from Visual.java. This is the class that our code revolves around. In this class you will find a number of important methods and variables used through the various visualization classes, such as the PVectors, one of which is used to calculate the border from the television screen to the edge of the visualization.
+
+
+
+
+
+
+
+
+
 This is code:
 
 ```Java
