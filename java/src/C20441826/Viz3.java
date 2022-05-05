@@ -63,44 +63,44 @@ public class Viz3 extends VisualSetup
         viz.noFill();
         //sclera
         viz.fill(255, 0, 255);
-        viz.ellipse(center.x, center.y, ((height + width) / 20) + (smoothedAmplitude * 400), ((height + width) / 40) + (smoothedAmplitude * 400));
+        viz.ellipse(center.x, center.y, ((height + width) / 25) + (smoothedAmplitude * 400), ((height + width) / 50) + (smoothedAmplitude * 400));
         //iris
         viz.fill(smoothedAmplitude * (height + width),255,255);
-        viz.ellipse(center.x, center.y, ((height + width) / 40) + (smoothedAmplitude * 400), ((height + width) / 40) + (smoothedAmplitude * 400));
+        viz.ellipse(center.x, center.y, ((height + width) / 50) + (smoothedAmplitude * 400), ((height + width) / 50) + (smoothedAmplitude * 400));
         //pupil
         viz.fill(0, 0, 20);
         viz.strokeWeight(0);
-        viz.ellipse(center.x, center.y, ((height + width) / 80) + (smoothedAmplitude * 400), ((height + width) / 40) + (smoothedAmplitude * 400));
+        viz.ellipse(center.x, center.y, ((height + width) / 100) + (smoothedAmplitude * 400), ((height + width) / 50) + (smoothedAmplitude * 400));
 
         //outer square
         viz.strokeWeight(2);
         viz.noFill();
         viz.rectMode(CENTER);
-        viz.square(center.x, center.y, (height + width) / 8);
+        viz.square(center.x, center.y, (height + width) / 10);
         viz.rectMode(CORNER);
 
         //left and right square visualizer
-        for(int i = (int)(height/2 - ((height + width) / 16)); i < (height) - (height/2) + ((height + width) / 16); i++)
+        for(int i = (int)(height/2 - ((height + width) / 20)); i < (height) - (height/2) + ((height + width) / 20); i++)
         {
             //map colours
-            float d = map(i, (int)(height/2 - ((height + width) / 16)), (height) - (height/2) + ((height + width) / 16), 0, 255);
+            float d = map(i, (int)(height/2 - ((height + width) / 20)), (height) - (height/2) + ((height + width) / 20), 0, 255);
             viz.stroke(d, 255, 255);
             //line visualizers --> slightly tamed
             float f = lerpedBufferY[i] * border.x * (float)0.9;
-            viz.line(center.x - ((height + width) / 16), i, f/3 + center.x - ((height + width) / 16), i);
-            viz.line(center.x + ((height + width) / 16), i, f/3 + center.x + ((height + width) / 16), i);
+            viz.line(center.x - ((height + width) / 20), i, f/3 + center.x - ((height + width) / 20), i);
+            viz.line(center.x + ((height + width) / 20), i, f/3 + center.x + ((height + width) / 20), i);
         }//end for loop
 
         //top and bottom square visualizer
-        for(int i = (int)(width/2 - ((height + width) / 16)); i < width - width/2 + ((height + width) / 16); i++)
+        for(int i = (int)(width/2 - ((height + width) / 20)); i < width - width/2 + ((height + width) / 20); i++)
         {
             //map colours
-            float d = map(i, (int)(width/2 - ((height + width) / 16)), width - width/2 + ((height + width) / 16), 0, 255);
+            float d = map(i, (int)(width/2 - ((height + width) / 20)), width - width/2 + ((height + width) / 20), 0, 255);
             viz.stroke(d, 255, 255);
             //line visualizers --> slightly tamed
             float f = lerpedBuffer[i] * border.y * (float)0.9;
-            viz.line(i, center.y - ((height + width) / 16), i, f/3 + center.y - ((height + width) / 16));
-            viz.line(i, center.y + ((height + width) / 16), i, f/3 + center.y + ((height + width) / 16));
+            viz.line(i, center.y - ((height + width) / 20), i, f/3 + center.y - ((height + width) / 20));
+            viz.line(i, center.y + ((height + width) / 20), i, f/3 + center.y + ((height + width) / 20));
         }//end for loop
 
         //sliders
