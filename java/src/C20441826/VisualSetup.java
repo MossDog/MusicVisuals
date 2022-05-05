@@ -259,4 +259,4 @@ public class VisualSetup extends Visual
 
     }//end mouseClicked
 
-}//end NameVisual
+}//end VisualSetup
